@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b092558fdb3bec046a911a97b5c395ea, type: 3}
+  m_Name: Kiara
+  m_EditorClassIdentifier: 
+  health: 100
+  cost: 50
+  damage: 20
+  timeBtwAtk: 4
+  fireballPref: {fileID: 1925994717313098153, guid: 295b48cf80632994c8012412790fae8a, type: 3}
+  fireDamage: 1
+  pointsProduct: 0
+  timeBtwProductions: 20
+  timeToDestroy: 0
+  decreaseSpeed: 0
+  stunTime: 0
+  attacksToStun: 0
+  distanceToMelee: 0
+  meleeDamage: 0
+  bleedingDamage: 0
+  reflectedDamage: 0
