@@ -7,19 +7,45 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject grid;
-    [SerializeField] private GameObject towerPref;
+    private GameObject towerPref;
 
     [SerializeField] private Tile[] tiles;
 
     public bool isTowerSelected = false;
 
-    public void TowerSelected()
+    private Button cardButton;
+
+    [SerializeField] private Color selectedButtonColor;
+    [SerializeField] private Color defaultButtonColor;
+
+    #region CardButtonMethods
+
+    public void TowerSelected(GameObject towerPref)
     {
         isTowerSelected = !isTowerSelected;
+        this.towerPref = towerPref;
+
+        foreach (Tile tile in tiles)
+        {
+            if (tile.transform.childCount == 0)
+            {
+                tile.isOccupied = false;
+            }
+        }
     }
 
+    public void ButtonSelected(Button button)
+    {
+        cardButton = button;
+        cardButton.image.color = selectedButtonColor;
+    }
+
+    #endregion
+    
     private void Update()
     {
+        #region TowerPlacing
+
         if (Input.GetMouseButtonDown(0) && isTowerSelected)
         {
             Tile nearestTile = null;
@@ -34,12 +60,21 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-            if (!nearestTile.isOccupied)
+            if (!nearestTile.isOccupied && nearestDistance < 0.9f)
             {
-                Instantiate(towerPref, nearestTile.transform.position, Quaternion.identity);
+                GameObject towerInstance = Instantiate(towerPref, nearestTile.transform.position, Quaternion.identity);
+                towerInstance.transform.parent = nearestTile.transform;
                 nearestTile.isOccupied = true;
                 isTowerSelected = !isTowerSelected;
+                cardButton.image.color = defaultButtonColor;
+            }
+            else
+            {
+                isTowerSelected = !isTowerSelected;
+                cardButton.image.color = defaultButtonColor;
             }
         }
+
+        #endregion
     }
 }

@@ -38,4 +38,9 @@ public class KiaraTowerScript : MonoBehaviour
     {
         Instantiate(kiara.fireballPref, firePos.transform.position, Quaternion.identity);
     }
+
+    private void OnMouseDown()
+    {
+        Destroy(gameObject);
+    }
 }
