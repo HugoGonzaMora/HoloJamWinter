@@ -7,8 +7,8 @@ public class GuraTowerScript : MonoBehaviour
     public TowerType gura;
     private Transform firePos;
     private float timeBtwAttacks;
-    private float currentHealth;
-    private float health;
+    private float currentGuraHealth;
+    private float guraHealth;
     private bool isInMeele = false;
 
     private Animator anim;
@@ -18,8 +18,8 @@ public class GuraTowerScript : MonoBehaviour
         timeBtwAttacks = gura.timeBtwAtk;
         anim = GetComponent<Animator>();
         firePos = gameObject.transform.GetChild(0);
-        health = gura.health;
-        currentHealth = health;
+        guraHealth = gura.health;
+        currentGuraHealth = guraHealth;
     }
 
     private void Update()
@@ -64,6 +64,6 @@ public class GuraTowerScript : MonoBehaviour
 
     public void GetDamage(float amount)
     {
-        health -= amount;
+        guraHealth -= amount;
     } 
 }

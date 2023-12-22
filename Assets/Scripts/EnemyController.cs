@@ -36,7 +36,14 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        
+        if(target == null)
+        {
+            isAttacking = false;
+        }
+        if(!isAttacking && !isDed)
+        {
+            this.transform.position += Vector3.left * speed * Time.deltaTime;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -49,6 +56,13 @@ public class EnemyController : MonoBehaviour
             target = collision.gameObject;
             StartCoroutine(Attack());
         }
+        else if(collision.gameObject.GetComponent<GuraTowerScript>() && GetComponent<CalliTowerScript>() &&
+                GetComponent<InaTowerScript>() && GetComponent<AmeTowerScript>() && GetComponent<KiaraTowerScript>() != null)
+        {
+            isAttacking = true;
+            target = collision.gameObject;
+            StartCoroutine(Attack());
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -58,12 +72,18 @@ public class EnemyController : MonoBehaviour
         isWalking = true;
     }
 
+   
+
     public IEnumerator Attack()
     {
         //Coroutine to attack the towers
         if(target != null)
         {
             target.GetComponent<GuraTowerScript>().GetDamage(damage);
+            target.GetComponent<KiaraTowerScript>().GetDamage(damage);
+            target.GetComponent<CalliTowerScript>().GetDamage(damage);
+            target.GetComponent<AmeTowerScript>().GetDamage(damage);
+            target.GetComponent<InaTowerScript>().GetDamage(damage);
         }
         yield return new WaitForSeconds(attackInterval);
         StartCoroutine(Attack());

@@ -8,7 +8,10 @@ public class KiaraTowerScript : MonoBehaviour
     public TowerType kiara;
     private Transform firePos;
     public float dynamicTimeBtwAttack;
+    private float currentKiaraHealth;
+    private float kiaraHealth;
     private float timeBtwAttck;
+
 
     private Animator anim;
 
@@ -18,6 +21,8 @@ public class KiaraTowerScript : MonoBehaviour
         timeBtwAttck = kiara.timeBtwAtk;
         dynamicTimeBtwAttack = kiara.timeBtwAtk;
         firePos = gameObject.transform.GetChild(0);
+        kiaraHealth = kiara.health;
+        currentKiaraHealth = kiaraHealth;
     }
 
     private void Update()
@@ -42,5 +47,9 @@ public class KiaraTowerScript : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);
+    }
+    public void GetDamage(float amount)
+    {
+        kiaraHealth -= amount;
     }
 }

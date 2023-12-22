@@ -7,6 +7,8 @@ public class CalliTowerScript : MonoBehaviour
     public TowerType calli;
     private float timeBtwAttacks;
     private bool isEnemyInZone = false;
+    private float currentCalliHealth;
+    private float calliHealth;
 
     private Animator anim;
 
@@ -14,6 +16,8 @@ public class CalliTowerScript : MonoBehaviour
     {
         timeBtwAttacks = calli.timeBtwAtk;
         anim = GetComponent<Animator>();
+        calliHealth = calli.health;
+        currentCalliHealth = calliHealth;
     }
 
     private void Update()
@@ -43,5 +47,10 @@ public class CalliTowerScript : MonoBehaviour
         {
             isEnemyInZone = false;
         }
+    }
+
+    public void GetDamage(float amount)
+    {
+        calliHealth -= amount;
     }
 }

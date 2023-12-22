@@ -10,11 +10,16 @@ public class InaTowerScript : MonoBehaviour
     private Animator anim;
 
     private Vector3 enemyPos;
+    private float currentInaHealth;
+    private float inaHealth;
+
 
     private void Start()
     {
         timeBtwAttacks = ina.timeBtwAtk;
         anim = GetComponent<Animator>();
+        inaHealth = ina.health;
+        currentInaHealth =inaHealth;
     }
 
     private void Update()
@@ -51,5 +56,10 @@ public class InaTowerScript : MonoBehaviour
     private void BulletInstantiate()
     {
         Instantiate(ina.tentaclePref, enemyPos, Quaternion.identity);
+    }
+
+    public void GetDamage(float amount)
+    {
+        inaHealth -= amount;
     }
 }

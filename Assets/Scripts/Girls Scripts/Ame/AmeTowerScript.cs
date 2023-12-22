@@ -8,6 +8,8 @@ public class AmeTowerScript : MonoBehaviour
     public TowerType ame;
     private Transform firePos;
 
+    private float currentAmeHealth;
+    private float ameHealth;
     private float timeBtwAttacks;
     private float currentAttacksToStun;
 
@@ -19,6 +21,8 @@ public class AmeTowerScript : MonoBehaviour
         currentAttacksToStun = ame.attacksToStun;
         anim = GetComponent<Animator>();
         firePos = gameObject.transform.GetChild(0);
+        ameHealth = ame.health;
+        currentAmeHealth = ameHealth;
     }
 
     private void Update()
@@ -38,5 +42,10 @@ public class AmeTowerScript : MonoBehaviour
     private void BulletInstantiate()
     {
         Instantiate(ame.bulletPref, firePos.transform.position, Quaternion.identity);
+    }
+
+    public void GetDamage(float amount)
+    {
+        ameHealth -= amount;
     }
 }
