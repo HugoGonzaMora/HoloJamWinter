@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a70df54e49abaa349ae1820da80a37f3
+guid: 722f93bc30d4b8649b87593025c778c7
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 105
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,117 +110,54 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ded_0
+      name: Gremlin_0
       rect:
         serializedVersion: 2
-        x: 4
-        y: 18
-        width: 152
-        height: 178
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 388ebe5d7d0bba845a62432d5d3a4d04
-      internalID: 1483457476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ded_1
-      rect:
-        serializedVersion: 2
-        x: 204
-        y: 18
-        width: 152
-        height: 178
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff7cfd5d9dae4a24db11d33b85f95aa5
-      internalID: 671769931
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ded_2
-      rect:
-        serializedVersion: 2
-        x: 420
-        y: 18
-        width: 150
-        height: 174
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2448650efc0c2b54f865c4281646322c
-      internalID: 1569471591
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ded_3
-      rect:
-        serializedVersion: 2
-        x: 569
-        y: 7
-        width: 229
-        height: 193
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4e7bcdd5798004b46a4ce325c21b7e6c
-      internalID: -353182559
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ded_4
-      rect:
-        serializedVersion: 2
-        x: 836
-        y: 24
-        width: 122
-        height: 174
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3982df3cde458f54593425f5f0358a2d
-      internalID: 608386964
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ded_5
-      rect:
-        serializedVersion: 2
-        x: 1040
+        x: 72
         y: 20
-        width: 132
+        width: 56
+        height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c623f79a65e78a143a667b0d5eb206a4
+      internalID: -1183569432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gremlin_1
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 20
+        width: 56
+        height: 166
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af2b59ffa3735bd4a832dbc72c190e06
+      internalID: -1822309576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gremlin_2
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 18
+        width: 62
         height: 168
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -229,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 95dc9f0fb8c0c364aafecc71e8cabc31
-      internalID: -1589822110
+      spriteID: 2269c2b8c95bc0b4ea91669e66235e5a
+      internalID: -1587647194
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Ded_6
+      name: Gremlin_3
       rect:
         serializedVersion: 2
-        x: 1236
-        y: 6
-        width: 124
-        height: 180
+        x: 666
+        y: 18
+        width: 74
+        height: 168
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -250,8 +187,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6ea02c27e69d4f4a919de55ae3e0765
-      internalID: -604683157
+      spriteID: bc136bed96206774f8ddb6e57165b1b6
+      internalID: 68528634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gremlin_4
+      rect:
+        serializedVersion: 2
+        x: 912
+        y: 96
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37ab8d08f3532c04bafa1c28d5bbacc2
+      internalID: -883145126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gremlin_5
+      rect:
+        serializedVersion: 2
+        x: 1112
+        y: 96
+        width: 22
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07b71ac356379dc4f9992cf5dc1c62a1
+      internalID: 1777857211
       vertices: []
       indices: 
       edges: []
@@ -267,13 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Ded_0: 1483457476
-      Ded_1: 671769931
-      Ded_2: 1569471591
-      Ded_3: -353182559
-      Ded_4: 608386964
-      Ded_5: -1589822110
-      Ded_6: -604683157
+      Gremlin_0: -1183569432
+      Gremlin_1: -1822309576
+      Gremlin_2: -1587647194
+      Gremlin_3: 68528634
+      Gremlin_4: -883145126
+      Gremlin_5: 1777857211
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
