@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b092558fdb3bec046a911a97b5c395ea, type: 3}
+  m_Name: Gura
+  m_EditorClassIdentifier: 
+  health: 0
+  cost: 0
+  damage: 0
+  timeBtwAtk: 0
+  fireballPref: {fileID: 0}
+  fireDamage: 0
+  pointsProduct: 0
+  timeBtwProductions: 0
+  timeToDestroy: 0
+  bulletPref: {fileID: 0}
+  decreaseSpeed: 0
+  stunTime: 0
+  attacksToStun: 0
+  distanceToMelee: 0
+  meleeDamage: 0
+  bleedingDamage: 0
+  reflectedDamage: 0

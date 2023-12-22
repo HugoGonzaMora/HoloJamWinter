@@ -1,11 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public TextMeshProUGUI holoPoints;
+    
+    public int holoPointsCnt;
+    private int towerCost;
+    
     [SerializeField] private GameObject grid;
     private GameObject towerPref;
 
@@ -17,6 +23,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Color selectedButtonColor;
     [SerializeField] private Color defaultButtonColor;
+
+    private void Start()
+    {
+        holoPointsCnt = 50;
+        UpdateHoloPoints();
+    }
 
     #region CardButtonMethods
 
@@ -46,6 +58,12 @@ public class GameManager : MonoBehaviour
     {
         #region TowerPlacing
 
+        if (holoPointsCnt < towerCost)
+        {
+            isTowerSelected = false;
+            cardButton.image.color = defaultButtonColor;
+        }
+
         if (Input.GetMouseButtonDown(0) && isTowerSelected)
         {
             Tile nearestTile = null;
@@ -67,6 +85,8 @@ public class GameManager : MonoBehaviour
                 nearestTile.isOccupied = true;
                 isTowerSelected = !isTowerSelected;
                 cardButton.image.color = defaultButtonColor;
+                holoPointsCnt -= towerCost;
+                UpdateHoloPoints();
             }
             else
             {
@@ -76,5 +96,15 @@ public class GameManager : MonoBehaviour
         }
 
         #endregion
+    }
+
+    public void UpdateHoloPoints()
+    {
+        holoPoints.text = Convert.ToString(holoPointsCnt);
+    }
+
+    public void CheckTowerCost(TextMeshProUGUI towerCost)
+    {
+        this.towerCost = Convert.ToInt32(towerCost.text);
     }
 }
