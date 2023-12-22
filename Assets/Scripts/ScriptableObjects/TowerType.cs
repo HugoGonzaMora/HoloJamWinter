@@ -39,5 +39,6 @@ public class TowerType : ScriptableObject
     [Range(1, 7)]public int bleedingDamage;
 
     [Header("Ina")] 
+    public GameObject tentaclePref;
     [Range(1, 10)] public int reflectedDamage;
 }

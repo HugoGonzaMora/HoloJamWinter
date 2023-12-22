@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b092558fdb3bec046a911a97b5c395ea, type: 3}
-  m_Name: Gura
+  m_Name: Ina
   m_EditorClassIdentifier: 
-  health: 300
+  health: 0
   cost: 0
   damage: 0
-  timeBtwAtk: 5
+  timeBtwAtk: 2
   fireballPref: {fileID: 0}
   fireDamage: 0
   pointsProduct: 0
@@ -25,8 +25,9 @@ MonoBehaviour:
   decreaseSpeed: 0
   stunTime: 0
   attacksToStun: 0
-  waterballPref: {fileID: 6397386571911291301, guid: 212c776011699964bbf9e6976abf6e71, type: 3}
+  waterballPref: {fileID: 0}
   distanceToMelee: 0
   meleeDamage: 0
   bleedingDamage: 0
+  tentaclePref: {fileID: 968980909611193674, guid: f5eb74a1752e81d44a2e80c8c2339b97, type: 3}
   reflectedDamage: 0
