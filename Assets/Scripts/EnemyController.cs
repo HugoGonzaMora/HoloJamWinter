@@ -13,14 +13,16 @@ public class EnemyController : MonoBehaviour
     public float damage;
     public float attackInterval;
     GameObject target;
-    public bool isAttacking;
+
 
     public AudioClip dmgSound;
 
     public GameObject pointsPrefab;
 
     [Header("Animation")]
+    public bool isAttacking;
     public bool isWalking;
+    public bool isDed;
 
     private void Start()
     {
@@ -32,5 +34,38 @@ public class EnemyController : MonoBehaviour
         currentHealth = health;
     }
 
+    private void Update()
+    {
+        
+    }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //Check if the enemy is collisioning with a tower
+        if(collision.gameObject.tag == "Tower")
+        {
+            isAttacking = true;
+            isWalking = false;
+            target = collision.gameObject;
+            StartCoroutine(Attack());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        target = null;
+        isAttacking = false;
+        isWalking = true;
+    }
+
+    public IEnumerator Attack()
+    {
+        //Coroutine to attack the towers
+        if(target != null)
+        {
+            target.GetComponent<GuraTowerScript>().GetDamage(damage);
+        }
+        yield return new WaitForSeconds(attackInterval);
+        StartCoroutine(Attack());
+    }
 }
