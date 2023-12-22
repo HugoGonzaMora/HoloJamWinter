@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: -6190127678182274788}
   m_Layer: 0
   m_Name: Kiwawa (1)_0
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kiara: {fileID: 11400000, guid: 4716d85018d53664ea08b6218efd363f, type: 2}
+  dynamicTimeBtwAttack: 0
 --- !u!61 &-6190127678182274788
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -189,7 +190,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.78}
+    oldSize: {x: 1.2190477, y: 1.6952381}
     newSize: {x: 1.28, y: 1.78}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
