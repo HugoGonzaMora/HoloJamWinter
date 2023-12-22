@@ -26,6 +26,11 @@ public class GuraTowerScript : MonoBehaviour
             Invoke("BulletInstantiate", 0.3f);
             timeBtwAttacks = gura.timeBtwAtk;
         }
+        else if (timeBtwAttacks <= 0 && isInMeele == true)
+        {
+            anim.Play("MeleeAttack");
+            timeBtwAttacks = gura.timeBtwAtk;
+        }
         else
         {
             timeBtwAttacks -= Time.deltaTime;
@@ -34,11 +39,9 @@ public class GuraTowerScript : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        
-        if (other.CompareTag("Enemy") && timeBtwAttacks <= 0)
+        if (other.CompareTag("Enemy"))
         {
             isInMeele = true;
-            anim.Play("MeleeAttack");
         }
     }
 
