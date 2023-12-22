@@ -15,7 +15,7 @@ MonoBehaviour:
   health: 200
   cost: 150
   damage: 30
-  timeBtwAtk: 3
+  timeBtwAtk: 0.3
   fireballPref: {fileID: 0}
   fireDamage: 0
   pointsProduct: 0

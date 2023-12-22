@@ -32,6 +32,7 @@ public class TowerType : ScriptableObject
     public int attacksToStun;
 
     [Header("Gura")] 
+    public GameObject waterballPref;
     public float distanceToMelee;
     
     public int meleeDamage;
