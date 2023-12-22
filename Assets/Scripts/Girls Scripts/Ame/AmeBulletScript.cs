@@ -1,15 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireballScript : MonoBehaviour
+public class AmeBulletScript : MonoBehaviour
 {
-    public float speed = 15f;
+    public float speed = 20f;
 
     private void Start()
     {
-        Invoke("Destroy", 3f);
+        Invoke("Destroy",1f);
     }
 
     void Update()
