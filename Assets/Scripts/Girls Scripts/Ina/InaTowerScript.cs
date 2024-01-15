@@ -41,11 +41,14 @@ public class InaTowerScript : MonoBehaviour
         
         ////////////////////////////////////////////////////////////
         
-        if (timeBtwAttacks <= 0 && hit.collider.CompareTag("Enemy"))
+        if (timeBtwAttacks <= 0 && hit.collider != null)
         {
-            anim.Play("RangedAttack");
-            Invoke("BulletInstantiate", 0.3f);
-            timeBtwAttacks = ina.timeBtwAtk;
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                anim.Play("RangedAttack");
+                Invoke("BulletInstantiate", 0.3f);
+                timeBtwAttacks = ina.timeBtwAtk;
+            }
         }
         else
         {
