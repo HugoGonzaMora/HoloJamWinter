@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CalliTowerScript : MonoBehaviour
@@ -31,6 +32,11 @@ public class CalliTowerScript : MonoBehaviour
         {
             timeBtwAttacks -= Time.deltaTime;
         }
+
+        if (currentCalliHealth <= 0)
+        {
+            Destroy(this.GameObject());
+        }
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -51,6 +57,6 @@ public class CalliTowerScript : MonoBehaviour
 
     public void GetDamage(float amount)
     {
-        calliHealth -= amount;
+        currentCalliHealth -= amount;
     }
 }

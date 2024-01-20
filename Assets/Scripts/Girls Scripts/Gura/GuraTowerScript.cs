@@ -39,6 +39,11 @@ public class GuraTowerScript : MonoBehaviour
         {
             timeBtwAttacks -= Time.deltaTime;
         }
+
+        if (currentGuraHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
     
     private void OnTriggerEnter2D(Collider2D other)
@@ -64,6 +69,6 @@ public class GuraTowerScript : MonoBehaviour
 
     public void GetDamage(float amount)
     {
-        guraHealth -= amount;
+        currentGuraHealth -= amount;
     } 
 }

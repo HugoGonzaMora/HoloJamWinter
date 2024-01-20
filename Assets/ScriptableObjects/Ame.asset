@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b092558fdb3bec046a911a97b5c395ea, type: 3}
   m_Name: Ame
   m_EditorClassIdentifier: 
-  health: 200
+  health: 50
   cost: 150
   damage: 30
   timeBtwAtk: 0.3
@@ -25,7 +25,9 @@ MonoBehaviour:
   decreaseSpeed: 2
   stunTime: 3
   attacksToStun: 3
+  waterballPref: {fileID: 0}
   distanceToMelee: 0
   meleeDamage: 0
   bleedingDamage: 0
+  tentaclePref: {fileID: 0}
   reflectedDamage: 0

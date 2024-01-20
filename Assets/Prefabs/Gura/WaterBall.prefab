@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1949046798793660779}
   - component: {fileID: 7900035988448146798}
   - component: {fileID: 4556092151167902335}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WaterBall
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

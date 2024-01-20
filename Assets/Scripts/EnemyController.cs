@@ -28,7 +28,8 @@ public class EnemyController : MonoBehaviour
     {
         speed = enemySO.enemySpeed; 
         health = enemySO.enemyHealth; 
-        currentHealth = enemySO.enemyHealth;
+        currentHealth = health;
+        //currentHealth = enemySO.enemyHealth;
         damage = enemySO.enemyDamage;
         attackInterval = enemySO.attackInterval;
         currentHealth = health;
@@ -46,44 +47,64 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //Check if the enemy is collisioning with a tower
+         if(collision.gameObject.tag == "Tower")
+         {
+             isAttacking = true;
+             isWalking = false;
+             target = collision.gameObject;
+             StartCoroutine(Attack());
+         }
+         
+         else if(collision.gameObject.GetComponent<GuraTowerScript>() && GetComponent<CalliTowerScript>() &&
+                 GetComponent<InaTowerScript>() && GetComponent<AmeTowerScript>() && GetComponent<KiaraTowerScript>() != null)
+         {
+             isAttacking = true;
+             target = collision.gameObject;
+             StartCoroutine(Attack());
+         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
         if(collision.gameObject.tag == "Tower")
         {
             isAttacking = true;
             isWalking = false;
             target = collision.gameObject;
-            StartCoroutine(Attack());
         }
         else if(collision.gameObject.GetComponent<GuraTowerScript>() && GetComponent<CalliTowerScript>() &&
                 GetComponent<InaTowerScript>() && GetComponent<AmeTowerScript>() && GetComponent<KiaraTowerScript>() != null)
         {
             isAttacking = true;
             target = collision.gameObject;
-            StartCoroutine(Attack());
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        target = null;
-        isAttacking = false;
-        isWalking = true;
+        if (collision.gameObject.tag != "Bullet")
+        {
+            target = null;
+            isAttacking = false;
+            isWalking = true;
+        }
+        
     }
-
-   
 
     public IEnumerator Attack()
     {
         //Coroutine to attack the towers
         if(target != null)
         {
-            target.GetComponent<GuraTowerScript>().GetDamage(damage);
-            target.GetComponent<KiaraTowerScript>().GetDamage(damage);
-            target.GetComponent<CalliTowerScript>().GetDamage(damage);
-            target.GetComponent<AmeTowerScript>().GetDamage(damage);
-            target.GetComponent<InaTowerScript>().GetDamage(damage);
+            target.GetComponent<GuraTowerScript>()?.GetDamage(damage);
+            target.GetComponent<KiaraTowerScript>()?.GetDamage(damage);
+            target.GetComponent<CalliTowerScript>()?.GetDamage(damage);
+            target.GetComponent<AmeTowerScript>()?.GetDamage(damage);
+            target.GetComponent<InaTowerScript>()?.GetDamage(damage);
         }
         yield return new WaitForSeconds(attackInterval);
         StartCoroutine(Attack());

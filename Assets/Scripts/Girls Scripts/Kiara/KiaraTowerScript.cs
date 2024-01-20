@@ -37,6 +37,11 @@ public class KiaraTowerScript : MonoBehaviour
         {
             timeBtwAttck -= Time.deltaTime;
         }
+
+        if (currentKiaraHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void FireballInstantiate()
@@ -50,6 +55,6 @@ public class KiaraTowerScript : MonoBehaviour
     }
     public void GetDamage(float amount)
     {
-        kiaraHealth -= amount;
+        currentKiaraHealth -= amount;
     }
 }

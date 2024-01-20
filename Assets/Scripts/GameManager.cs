@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        holoPointsCnt = 50;
         UpdateHoloPoints();
     }
 

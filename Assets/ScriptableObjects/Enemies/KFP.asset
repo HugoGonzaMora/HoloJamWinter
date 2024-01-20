@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbb31e391bc2571429e7e98fc1c3dc15, type: 3}
   m_Name: KFP
   m_EditorClassIdentifier: 
-  enemyHealth: 0
-  enemySpeed: 0
-  enemyDamage: 0
-  attackInterval: 0
+  enemyHealth: 1
+  enemySpeed: 2
+  enemyDamage: 5
+  attackInterval: 0.5
   newSprite: {fileID: 0}
   pointsDropRate: 0

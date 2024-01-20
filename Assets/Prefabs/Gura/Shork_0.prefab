@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1742157366909064576}
   - component: {fileID: 1060520032477902128}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CheckMelee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3414295094147569624}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: firePos
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 5267853150720651044}
   - component: {fileID: -1478940466226940715}
   - component: {fileID: -4505153271556904262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shork_0
   m_TagString: Tower
   m_Icon: {fileID: 0}

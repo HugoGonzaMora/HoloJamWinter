@@ -6,14 +6,15 @@ TagManager:
   tags:
   - Enemy
   - Tower
+  - Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - EnemyLayer
   - Water
   - UI
-  - 
+  - Tower
   - 
   - 
   - 

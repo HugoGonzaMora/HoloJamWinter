@@ -12,14 +12,18 @@ public class InaTowerScript : MonoBehaviour
     private Vector3 enemyPos;
     private float currentInaHealth;
     private float inaHealth;
-
+    private int layerMask;
+    private float rayLength;
 
     private void Start()
     {
         timeBtwAttacks = ina.timeBtwAtk;
         anim = GetComponent<Animator>();
         inaHealth = ina.health;
-        currentInaHealth =inaHealth;
+        currentInaHealth = inaHealth;
+        
+        layerMask = LayerMask.GetMask("Default");
+        rayLength = 50f;
     }
 
     private void Update()
@@ -28,15 +32,10 @@ public class InaTowerScript : MonoBehaviour
 
         Vector2 rayDirection = Vector2.right;
 
-        float rayLength = 50f;
-
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength);
-        if (hit.collider != null)
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, layerMask);
+        if (hit.collider != null && hit.collider.CompareTag("Enemy"))
         {
-            if (hit.collider.CompareTag("Enemy"))
-            {
                 enemyPos = hit.transform.position;
-            }
         }
         
         ////////////////////////////////////////////////////////////
@@ -45,7 +44,6 @@ public class InaTowerScript : MonoBehaviour
         {
             if (hit.collider.CompareTag("Enemy"))
             {
-                anim.Play("RangedAttack");
                 Invoke("BulletInstantiate", 0.3f);
                 timeBtwAttacks = ina.timeBtwAtk;
             }
@@ -53,6 +51,11 @@ public class InaTowerScript : MonoBehaviour
         else
         {
             timeBtwAttacks -= Time.deltaTime;
+        }
+
+        if (currentInaHealth <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -63,6 +66,6 @@ public class InaTowerScript : MonoBehaviour
 
     public void GetDamage(float amount)
     {
-        inaHealth -= amount;
+        currentInaHealth -= amount;
     }
 }

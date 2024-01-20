@@ -37,6 +37,11 @@ public class AmeTowerScript : MonoBehaviour
         {
             timeBtwAttacks -= Time.deltaTime;
         }
+
+        if (currentAmeHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void BulletInstantiate()
@@ -46,6 +51,6 @@ public class AmeTowerScript : MonoBehaviour
 
     public void GetDamage(float amount)
     {
-        ameHealth -= amount;
+        currentAmeHealth -= amount;
     }
 }

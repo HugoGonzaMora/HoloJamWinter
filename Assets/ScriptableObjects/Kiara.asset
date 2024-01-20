@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b092558fdb3bec046a911a97b5c395ea, type: 3}
   m_Name: Kiara
   m_EditorClassIdentifier: 
-  health: 100
+  health: 150
   cost: 50
   damage: 20
   timeBtwAtk: 4
@@ -21,10 +21,13 @@ MonoBehaviour:
   pointsProduct: 0
   timeBtwProductions: 20
   timeToDestroy: 0
+  bulletPref: {fileID: 0}
   decreaseSpeed: 0
   stunTime: 0
   attacksToStun: 0
+  waterballPref: {fileID: 0}
   distanceToMelee: 0
   meleeDamage: 0
   bleedingDamage: 0
+  tentaclePref: {fileID: 0}
   reflectedDamage: 0
