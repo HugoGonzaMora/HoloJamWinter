@@ -17,7 +17,7 @@ MonoBehaviour:
   damage: 20
   timeBtwAtk: 4
   fireballPref: {fileID: 1925994717313098153, guid: 295b48cf80632994c8012412790fae8a, type: 3}
-  fireDamage: 1
+  fireDamage: 5
   pointsProduct: 0
   timeBtwProductions: 20
   timeToDestroy: 0

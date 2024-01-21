@@ -5,16 +5,24 @@ using UnityEngine;
 public class GuraTowerScript : MonoBehaviour
 {
     public TowerType gura;
+    
     private Transform firePos;
+    
     private float timeBtwAttacks;
     private float currentGuraHealth;
     private float guraHealth;
+    
     private bool isInMeele = false;
+
+    private float _meeleDamage;
 
     private Animator anim;
 
+    private GameObject target;
+
     private void Start()
     {
+        _meeleDamage = gura.meleeDamage;
         timeBtwAttacks = gura.timeBtwAtk;
         anim = GetComponent<Animator>();
         firePos = gameObject.transform.GetChild(0);
@@ -33,6 +41,7 @@ public class GuraTowerScript : MonoBehaviour
         else if (timeBtwAttacks <= 0 && isInMeele == true)
         {
             anim.Play("MeleeAttack");
+            target.GetComponent<EnemyController>()?.GetDamage(_meeleDamage);
             timeBtwAttacks = gura.timeBtwAtk;
         }
         else
@@ -46,17 +55,18 @@ public class GuraTowerScript : MonoBehaviour
         }
     }
     
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
             isInMeele = true;
+            target = collision.gameObject;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
              isInMeele = false;
         }

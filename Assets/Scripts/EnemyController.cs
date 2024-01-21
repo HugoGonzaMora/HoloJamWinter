@@ -29,7 +29,6 @@ public class EnemyController : MonoBehaviour
         speed = enemySO.enemySpeed; 
         health = enemySO.enemyHealth; 
         currentHealth = health;
-        //currentHealth = enemySO.enemyHealth;
         damage = enemySO.enemyDamage;
         attackInterval = enemySO.attackInterval;
         currentHealth = health;
@@ -45,6 +44,11 @@ public class EnemyController : MonoBehaviour
         {
             this.transform.position += Vector3.left * speed * Time.deltaTime;
         }
+
+        if (currentHealth <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,14 +58,6 @@ public class EnemyController : MonoBehaviour
          {
              isAttacking = true;
              isWalking = false;
-             target = collision.gameObject;
-             StartCoroutine(Attack());
-         }
-         
-         else if(collision.gameObject.GetComponent<GuraTowerScript>() && GetComponent<CalliTowerScript>() &&
-                 GetComponent<InaTowerScript>() && GetComponent<AmeTowerScript>() && GetComponent<KiaraTowerScript>() != null)
-         {
-             isAttacking = true;
              target = collision.gameObject;
              StartCoroutine(Attack());
          }
@@ -75,13 +71,6 @@ public class EnemyController : MonoBehaviour
             isWalking = false;
             target = collision.gameObject;
         }
-        else if(collision.gameObject.GetComponent<GuraTowerScript>() && GetComponent<CalliTowerScript>() &&
-                GetComponent<InaTowerScript>() && GetComponent<AmeTowerScript>() && GetComponent<KiaraTowerScript>() != null)
-        {
-            isAttacking = true;
-            target = collision.gameObject;
-        }
-        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -92,7 +81,6 @@ public class EnemyController : MonoBehaviour
             isAttacking = false;
             isWalking = true;
         }
-        
     }
 
     public IEnumerator Attack()
@@ -108,5 +96,21 @@ public class EnemyController : MonoBehaviour
         }
         yield return new WaitForSeconds(attackInterval);
         StartCoroutine(Attack());
+    }
+
+    public void GetDamage(float damage)
+    {
+        currentHealth -= damage;
+        Debug.Log(currentHealth);
+    }
+    
+    public IEnumerator GetBurn(float damage)
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            currentHealth -= damage;
+            Debug.Log(currentHealth);
+            yield return new WaitForSeconds(1f);
+        }
     }
 }

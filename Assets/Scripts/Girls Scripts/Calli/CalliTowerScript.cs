@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,14 +8,17 @@ public class CalliTowerScript : MonoBehaviour
 {
     public TowerType calli;
     private float timeBtwAttacks;
-    private bool isEnemyInZone = false;
     private float currentCalliHealth;
     private float calliHealth;
+    private float _damage;
 
     private Animator anim;
 
+    private List<GameObject> enemiesInRange = new List<GameObject>();
+
     private void Start()
     {
+        _damage = calli.damage;
         timeBtwAttacks = calli.timeBtwAtk;
         anim = GetComponent<Animator>();
         calliHealth = calli.health;
@@ -23,9 +27,13 @@ public class CalliTowerScript : MonoBehaviour
 
     private void Update()
     {
-        if (timeBtwAttacks <= 0 && isEnemyInZone == true)
+        if (timeBtwAttacks <= 0 && enemiesInRange.Any())
         {
             anim.Play("Attack");
+            foreach (GameObject enemy in enemiesInRange)
+            {
+                enemy.gameObject.GetComponent<EnemyController>()?.GetDamage(_damage);
+            }
             timeBtwAttacks = calli.timeBtwAtk;
         }
         else
@@ -39,19 +47,19 @@ public class CalliTowerScript : MonoBehaviour
         }
     }
     
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
-            isEnemyInZone = true;
+            enemiesInRange.Add(collision.gameObject);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy"))
         {
-            isEnemyInZone = false;
+            enemiesInRange.Remove(collision.gameObject);
         }
     }
 

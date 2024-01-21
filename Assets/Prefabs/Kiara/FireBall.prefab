@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be9712008980f964199613f2e1dfbaa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  kiaraTowerSO: {fileID: 11400000, guid: 4716d85018d53664ea08b6218efd363f, type: 2}
   speed: 12
 --- !u!95 &3134320107557443271
 Animator:

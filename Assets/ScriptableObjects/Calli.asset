@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 300
   cost: 200
-  damage: 50
+  damage: 25
   timeBtwAtk: 2
   fireballPref: {fileID: 0}
   fireDamage: 0

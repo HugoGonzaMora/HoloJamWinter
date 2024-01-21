@@ -16,7 +16,7 @@ public class TowerType : ScriptableObject
     [Header("Kiara")] 
     public GameObject fireballPref;
     
-    [Range(1, 7)]public int fireDamage;
+    [Range(1, 15)]public int fireDamage;
     public int pointsProduct;
     
     [Range(10, 20)]public float timeBtwProductions;
