@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public event Action OnEnemyDeath;
+    
     public EnemyType enemySO;
 
     public float speed;
@@ -43,11 +46,6 @@ public class EnemyController : MonoBehaviour
         if(!isAttacking && !isDed)
         {
             this.transform.position += Vector3.left * speed * Time.deltaTime;
-        }
-
-        if (currentHealth <= 0)
-        {
-            Destroy(this.gameObject);
         }
     }
 
@@ -101,16 +99,28 @@ public class EnemyController : MonoBehaviour
     public void GetDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log(currentHealth);
+        if (currentHealth <= 0)
+        {
+            currentHealth = health;
+            
+            NotifyEnemyDeath();
+            
+            WaveManager.Instance.AddEnemyToPool(this.gameObject);
+        }
     }
     
-    public IEnumerator GetBurn(float damage)
+    public IEnumerator GetPassiveDamage(float damage)
     {
         for (int i = 0; i < 5; i++)
         {
             currentHealth -= damage;
-            Debug.Log(currentHealth);
             yield return new WaitForSeconds(1f);
+            if (currentHealth <= 0)
+            {
+                break;
+            }
         }
     }
+
+    private void NotifyEnemyDeath() => OnEnemyDeath?.Invoke();
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KFP
   m_EditorClassIdentifier: 
   enemyHealth: 150
-  enemySpeed: 2
+  enemySpeed: 1
   enemyDamage: 5
   attackInterval: 0.5
   newSprite: {fileID: 0}

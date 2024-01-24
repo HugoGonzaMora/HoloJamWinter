@@ -30,7 +30,7 @@ public class CalliTowerScript : MonoBehaviour
         if (timeBtwAttacks <= 0 && enemiesInRange.Any())
         {
             anim.Play("Attack");
-            foreach (GameObject enemy in enemiesInRange)
+            foreach (GameObject enemy in enemiesInRange.ToList())
             {
                 enemy.gameObject.GetComponent<EnemyController>()?.GetDamage(_damage);
             }
@@ -43,7 +43,7 @@ public class CalliTowerScript : MonoBehaviour
 
         if (currentCalliHealth <= 0)
         {
-            Destroy(this.GameObject());
+            Destroy(this.gameObject);
         }
     }
     

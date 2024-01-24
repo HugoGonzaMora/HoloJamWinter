@@ -10,9 +10,12 @@ public class TentaclesScript : MonoBehaviour
 
     private float _damage;
 
+    private BoxCollider2D boxCol;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        boxCol = GetComponent<BoxCollider2D>();
     }
 
     void Start()
@@ -27,6 +30,7 @@ public class TentaclesScript : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>()?.GetDamage(_damage);
+            boxCol.enabled = false;
         }
     }
 

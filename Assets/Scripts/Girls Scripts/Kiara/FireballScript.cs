@@ -28,11 +28,15 @@ public class FireballScript : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>()?.GetDamage(_damage);
-            
-            BurnCoroutine = collision.gameObject.GetComponent<EnemyController>()?.GetBurn(_fireDamage);
-            collision.gameObject.GetComponent<EnemyController>()?.StopCoroutine(BurnCoroutine);
+
+            if (collision.gameObject.activeInHierarchy)
+            {
+                BurnCoroutine = collision.gameObject.GetComponent<EnemyController>()?.GetPassiveDamage(_fireDamage);
+                collision.gameObject.GetComponent<EnemyController>()?.StopCoroutine(BurnCoroutine);
     
-            collision.gameObject.GetComponent<EnemyController>()?.StartCoroutine(BurnCoroutine);
+                collision.gameObject.GetComponent<EnemyController>()?.StartCoroutine(BurnCoroutine);
+            }
+            
             Destroy(this.gameObject);
         }
     }
