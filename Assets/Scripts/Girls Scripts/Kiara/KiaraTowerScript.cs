@@ -11,7 +11,9 @@ public class KiaraTowerScript : MonoBehaviour
     private float currentKiaraHealth;
     private float kiaraHealth;
     private float timeBtwAttck;
-
+    
+    private int layerMask;
+    private float rayLength;
 
     private Animator anim;
 
@@ -23,11 +25,19 @@ public class KiaraTowerScript : MonoBehaviour
         firePos = gameObject.transform.GetChild(0);
         kiaraHealth = kiara.health;
         currentKiaraHealth = kiaraHealth;
+        
+        layerMask = LayerMask.GetMask("Default");
+        rayLength = 50f;
     }
 
     private void Update()
     {
-        if (timeBtwAttck <= 0)
+        Vector2 rayOrigin = transform.position;
+
+        Vector2 rayDirection = Vector2.right;
+
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, layerMask);
+        if (hit.collider != null && hit.collider.CompareTag("Enemy") && timeBtwAttck <= 0)
         {
             anim.Play("Attack");
             Invoke("FireballInstantiate", 0.4f);

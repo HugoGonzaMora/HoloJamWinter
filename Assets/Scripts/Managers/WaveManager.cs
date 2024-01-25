@@ -5,12 +5,8 @@ using Random = UnityEngine.Random;
 
 public class WaveManager : MonoBehaviour
 {
-    #region Singleton
-
+    //Singleton
     public static WaveManager Instance;
-    
-
-    #endregion
     
     [System.Serializable]
     public class EnemyWaveType
@@ -98,7 +94,7 @@ public class WaveManager : MonoBehaviour
         int enemiesToSpawn = Random.Range(_minIncreaseEnemyCnt, _maxIncreaseEnemyCnt + 1);
         enemiesAlive = enemiesToSpawn;
 
-        Debug.Log($"Всего противников в волне: {enemiesToSpawn}");
+        Debug.Log($"Enemies in wave: {enemiesToSpawn}");
         
         for (int i = 0; i < enemiesToSpawn; i++)
         {
@@ -131,13 +127,10 @@ public class WaveManager : MonoBehaviour
         {
             foreach (var enemyType in enemyTypes)
             {
-                for (int i = 0; i < enemyType.weight; i++)
-                {
-                    GameObject enemy = Instantiate(enemyType.prefab, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
-                    enemy.SetActive(false);
-                    enemyPool.Add(enemy);
-                    StartCoroutine(SpawnEnemy());
-                }
+                GameObject enemy = Instantiate(enemyType.prefab, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
+                enemy.SetActive(false);
+                enemyPool.Add(enemy);
+                StartCoroutine(SpawnEnemy());
             }
         }
     }
@@ -153,6 +146,6 @@ public class WaveManager : MonoBehaviour
     private void HandleEnemyDeath()
     {
         enemiesAlive--;
-        Debug.Log($"Кол-во противников: {enemiesAlive}");
+        Debug.Log($"Enemies left: {enemiesAlive}");
     }
 }

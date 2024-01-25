@@ -29,6 +29,11 @@ public class CalliTowerScript : MonoBehaviour
     {
         if (timeBtwAttacks <= 0 && enemiesInRange.Any())
         {
+            int randNum = Random.Range(1, 101);
+            if (randNum == 3)
+            {
+                enemiesInRange[Random.Range(0, enemiesInRange.Count)].gameObject.GetComponent<EnemyController>()?.GetDamage(999);
+            }
             anim.Play("Attack");
             foreach (GameObject enemy in enemiesInRange.ToList())
             {

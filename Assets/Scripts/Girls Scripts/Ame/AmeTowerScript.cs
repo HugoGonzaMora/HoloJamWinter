@@ -12,6 +12,9 @@ public class AmeTowerScript : MonoBehaviour
     private float ameHealth;
     private float timeBtwAttacks;
     private float currentAttacksToStun;
+    
+    private int layerMask;
+    private float rayLength;
 
     private Animator anim;
 
@@ -23,11 +26,19 @@ public class AmeTowerScript : MonoBehaviour
         firePos = gameObject.transform.GetChild(0);
         ameHealth = ame.health;
         currentAmeHealth = ameHealth;
+        
+        layerMask = LayerMask.GetMask("Default");
+        rayLength = 50f;
     }
 
     private void Update()
     {
-        if (timeBtwAttacks <= 0)
+        Vector2 rayOrigin = transform.position;
+
+        Vector2 rayDirection = Vector2.right;
+
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, layerMask);
+        if (hit.collider != null && hit.collider.CompareTag("Enemy") && timeBtwAttacks <= 0)
         {
             anim.Play("Attack");
             Invoke("BulletInstantiate", 0.3f);

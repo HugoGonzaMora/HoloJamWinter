@@ -12,6 +12,9 @@ public class GuraTowerScript : MonoBehaviour
     private float currentGuraHealth;
     private float guraHealth;
     
+    private int layerMask;
+    private float rayLength;
+    
     private bool isInMeele = false;
 
     private float _meeleDamage;
@@ -28,11 +31,19 @@ public class GuraTowerScript : MonoBehaviour
         firePos = gameObject.transform.GetChild(0);
         guraHealth = gura.health;
         currentGuraHealth = guraHealth;
+        
+        layerMask = LayerMask.GetMask("Default");
+        rayLength = 50f;
     }
 
     private void Update()
     {
-        if (timeBtwAttacks <= 0 && isInMeele == false)
+        Vector2 rayOrigin = transform.position;
+
+        Vector2 rayDirection = Vector2.right;
+
+        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, layerMask);
+        if (hit.collider != null && hit.collider.CompareTag("Enemy") && timeBtwAttacks <= 0 && isInMeele == false)
         {
             anim.Play("RangedAttack");
             Invoke("BulletInstantiate", 0.3f);
