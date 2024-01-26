@@ -10,6 +10,8 @@ public class EnemyType : ScriptableObject
     public float enemyDamage;
     public float attackInterval;
 
+    public int weight;
+
     public Sprite newSprite;
 
     [Range(0, 100)]

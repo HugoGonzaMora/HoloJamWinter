@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -13,6 +14,7 @@ public class WaveManager : MonoBehaviour
     {
         public GameObject prefab;
         public int weight;
+        public int chanceOfSpawn;
     }
     
     public List<EnemyWaveType> enemyTypes;
@@ -21,14 +23,17 @@ public class WaveManager : MonoBehaviour
 
     private float _timeBetweenWaves = 5f;
 
-    private int _minIncreaseEnemyCnt = 1;
-    private int _maxIncreaseEnemyCnt = 3;
+    private int _minIncreaseWeightCnt = 4;
+    private int _maxIncreaseWeightCnt = 7;
+    private int _minAdditionalWeight = 0;
+    private int _maxAdditionalWeight = 0;
+    private int weightForWave = 0;
 
     private int _waveIndex;
 
     private bool isWaveNow;
 
-    public static int enemiesAlive;
+    public static int weightOnTheScene;
 
     private List<GameObject> enemyPool = new List<GameObject>();
 
@@ -41,10 +46,9 @@ public class WaveManager : MonoBehaviour
     {
         isWaveNow = false;
         _waveIndex = 0;
-        enemiesAlive = 0;
+        weightOnTheScene = 0;
         
         InitializeEnemyPool();
-        Debug.Log(enemyPool.Count);
     }
 
     private void Update()
@@ -59,10 +63,10 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
-            if (enemiesAlive <= 0)
+            if (weightOnTheScene <= 0)
             {
                 isWaveNow = false;
-                _timeBetweenWaves = 20f;
+                _timeBetweenWaves = 10f;
             }
         }
     }
@@ -71,12 +75,9 @@ public class WaveManager : MonoBehaviour
     {
         foreach (var enemyType in enemyTypes)
         {
-            for (int i = 0; i < enemyType.weight; i++)
-            {
                 GameObject enemy = Instantiate(enemyType.prefab, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
                 enemy.SetActive(false);
                 enemyPool.Add(enemy);
-            }
         }
     }
 
@@ -85,54 +86,84 @@ public class WaveManager : MonoBehaviour
         isWaveNow = true;
         _waveIndex++;
         
-        if (_waveIndex % 5 == 0)
+        if (_waveIndex % 3 == 0)
         {
-            _maxIncreaseEnemyCnt++;
-            _minIncreaseEnemyCnt++;
+            _minAdditionalWeight += _waveIndex / 3;
+            _maxAdditionalWeight = _minAdditionalWeight + _waveIndex / 3;
         }
         
-        int enemiesToSpawn = Random.Range(_minIncreaseEnemyCnt, _maxIncreaseEnemyCnt + 1);
-        enemiesAlive = enemiesToSpawn;
+        weightForWave = Random.Range(_minIncreaseWeightCnt, _maxIncreaseWeightCnt + 1);
+        weightOnTheScene = weightForWave;
 
-        Debug.Log($"Enemies in wave: {enemiesToSpawn}");
+        _minIncreaseWeightCnt = weightForWave + _minAdditionalWeight;
+        _maxIncreaseWeightCnt = _minIncreaseWeightCnt + _maxAdditionalWeight;
         
-        for (int i = 0; i < enemiesToSpawn; i++)
-        {
-            StartCoroutine(SpawnEnemy());
-        }
+        Debug.Log($"Weight in wave: {weightForWave}");
 
-        _minIncreaseEnemyCnt += Random.Range(1, 2);
-        _maxIncreaseEnemyCnt += Random.Range(1, 2);
+        StartCoroutine(SpawnEnemy());
     }
 
     private IEnumerator SpawnEnemy()
     {
-        yield return new WaitForSeconds(Random.Range(0.5f, 3f));
-
-        if (enemyPool.Count > 0)
+        while (weightForWave > 0)
         {
-            int randomIndex = Random.Range(0, enemyPool.Count);
-            GameObject enemy = enemyPool[randomIndex];
-            enemyPool.RemoveAt(randomIndex);
+            yield return new WaitForSeconds(Random.Range(1f, 4f));
+            GameObject enemy = ChooseRandomEnemy();
+            Debug.Log(enemy);
+            GameObject enemyInPool = enemyPool.Find(e => e != null && e.name.StartsWith(enemy.name));
 
-            Vector3 spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
-
-            enemy.transform.position = spawnPoint;
-            
-            enemy.SetActive(true);
-
-            enemy.GetComponent<EnemyController>().OnEnemyDeath += HandleEnemyDeath;
-        }
-        else
-        {
-            foreach (var enemyType in enemyTypes)
+            if (enemyPool.Contains(enemyInPool))
             {
-                GameObject enemy = Instantiate(enemyType.prefab, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
-                enemy.SetActive(false);
-                enemyPool.Add(enemy);
-                StartCoroutine(SpawnEnemy());
+                SpawnFromPool(enemyInPool);
+            }
+            else
+            {
+                GameObject enemyForPool = Instantiate(enemy.gameObject, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
+                enemyForPool.SetActive(false);
+                enemyPool.Add(enemyForPool);
+                SpawnFromPool(enemyForPool);
             }
         }
+    }
+
+    private void SpawnFromPool(GameObject enemy)
+    {
+        enemyPool.Remove(enemy);
+            
+        Vector3 spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+
+        enemy.transform.position = spawnPoint;
+            
+        enemy.SetActive(true);
+
+        enemy.GetComponent<EnemyController>().OnEnemyDeath += HandleEnemyDeath;
+    }
+
+    private GameObject ChooseRandomEnemy()
+    {
+        int randomValue = Random.Range(0, 101);
+
+        foreach (var enemyType in enemyTypes)
+        {
+            if (randomValue <= enemyType.chanceOfSpawn)
+            {
+                if (weightForWave - enemyType.weight >= 0)
+                {
+                    weightForWave -= enemyType.weight;
+                    return enemyType.prefab;
+                }
+                else
+                {
+                    return ChooseRandomEnemy();
+                }
+            }
+            else
+            {
+                randomValue -= enemyType.chanceOfSpawn;
+            }
+        }
+        
+        return null;
     }
 
     public void AddEnemyToPool(GameObject enemy)
@@ -143,9 +174,9 @@ public class WaveManager : MonoBehaviour
         enemy.GetComponent<EnemyController>().OnEnemyDeath -= HandleEnemyDeath;
     }
 
-    private void HandleEnemyDeath()
+    private void HandleEnemyDeath(EnemyController enemy)
     {
-        enemiesAlive--;
-        Debug.Log($"Enemies left: {enemiesAlive}");
+        weightOnTheScene -= enemy.weight;
+        Debug.Log($"Enemies weightOnTheScene: {weightOnTheScene}");
     }
 }

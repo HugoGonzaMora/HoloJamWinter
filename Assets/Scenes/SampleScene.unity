@@ -5040,8 +5040,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyTypes:
-  - prefab: {fileID: 4823423139049594574, guid: 606ea4a826151174e841ed6db6de142f, type: 3}
+  - prefab: {fileID: 6752486788846194637, guid: 02b5082b227d6b04581b66b883359b73, type: 3}
     weight: 1
+    chanceOfSpawn: 30
+  - prefab: {fileID: 6752486788846194637, guid: 5ca5dff1c9533f04ba770c92f4c88c11, type: 3}
+    weight: 2
+    chanceOfSpawn: 20
+  - prefab: {fileID: 6752486788846194637, guid: a14d429bb10686a43b50a2674bffc8ac, type: 3}
+    weight: 2
+    chanceOfSpawn: 20
+  - prefab: {fileID: 6752486788846194637, guid: 0eb8a7d3d0b4181489e4b01263ac231c, type: 3}
+    weight: 3
+    chanceOfSpawn: 15
+  - prefab: {fileID: 6752486788846194637, guid: b660386fa2a452943871fd47fef32144, type: 3}
+    weight: 4
+    chanceOfSpawn: 15
   spawnPoints:
   - {fileID: 844989071}
   - {fileID: 1852243557}

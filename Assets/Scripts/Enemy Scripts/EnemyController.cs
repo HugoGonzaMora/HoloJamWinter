@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public event Action OnEnemyDeath;
+    public event Action<EnemyController> OnEnemyDeath;
     
     public EnemyType enemySO;
 
@@ -15,6 +15,9 @@ public class EnemyController : MonoBehaviour
     public float currentHealth;
     public float damage;
     public float attackInterval;
+
+    public int weight;
+    
     GameObject target;
 
 
@@ -35,6 +38,7 @@ public class EnemyController : MonoBehaviour
         damage = enemySO.enemyDamage;
         attackInterval = enemySO.attackInterval;
         currentHealth = health;
+        weight = enemySO.weight;
     }
 
     private void Update()
@@ -122,5 +126,5 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void NotifyEnemyDeath() => OnEnemyDeath?.Invoke();
+    private void NotifyEnemyDeath() => OnEnemyDeath?.Invoke(this);
 }

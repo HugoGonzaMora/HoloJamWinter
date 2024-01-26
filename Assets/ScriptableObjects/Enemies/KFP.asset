@@ -16,5 +16,6 @@ MonoBehaviour:
   enemySpeed: 1
   enemyDamage: 5
   attackInterval: 0.5
+  weight: 1
   newSprite: {fileID: 0}
   pointsDropRate: 0
