@@ -28,6 +28,6 @@ MonoBehaviour:
   waterballPref: {fileID: 6397386571911291301, guid: 212c776011699964bbf9e6976abf6e71, type: 3}
   distanceToMelee: 0
   meleeDamage: 30
-  bleedingDamage: 1
+  bleedingDamage: 5
   tentaclePref: {fileID: 0}
   reflectedDamage: 0

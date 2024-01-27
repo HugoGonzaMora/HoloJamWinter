@@ -115,9 +115,11 @@ public class EnemyController : MonoBehaviour
     
     public IEnumerator GetPassiveDamage(float damage)
     {
+        int percentOfDamage = (int)((health * damage) / 100);
         for (int i = 0; i < 5; i++)
         {
-            currentHealth -= damage;
+            currentHealth -= percentOfDamage;
+            //Debug.Log(currentHealth);
             yield return new WaitForSeconds(1f);
             if (currentHealth <= 0)
             {

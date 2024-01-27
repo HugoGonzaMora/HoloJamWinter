@@ -11,6 +11,8 @@ public class GuraTowerScript : MonoBehaviour
     private float timeBtwAttacks;
     private float currentGuraHealth;
     private float guraHealth;
+
+    private float _bleedDamage;
     
     private int layerMask;
     private float rayLength;
@@ -23,6 +25,8 @@ public class GuraTowerScript : MonoBehaviour
 
     private GameObject target;
 
+    private IEnumerator BleedCoroutine;
+
     private void Start()
     {
         _meeleDamage = gura.meleeDamage;
@@ -31,6 +35,7 @@ public class GuraTowerScript : MonoBehaviour
         firePos = gameObject.transform.GetChild(0);
         guraHealth = gura.health;
         currentGuraHealth = guraHealth;
+        _bleedDamage = gura.bleedingDamage;
         
         layerMask = LayerMask.GetMask("Default");
         rayLength = 50f;
@@ -53,6 +58,13 @@ public class GuraTowerScript : MonoBehaviour
         {
             anim.Play("MeleeAttack");
             target.GetComponent<EnemyController>()?.GetDamage(_meeleDamage);
+            if (target.activeInHierarchy)
+            {
+                BleedCoroutine = target.GetComponent<EnemyController>()?.GetPassiveDamage(_bleedDamage);
+                target.GetComponent<EnemyController>()?.StopCoroutine(BleedCoroutine);
+    
+                target.GetComponent<EnemyController>()?.StartCoroutine(BleedCoroutine);
+            }
             timeBtwAttacks = gura.timeBtwAtk;
         }
         else
