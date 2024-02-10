@@ -51,6 +51,15 @@ public class EnemyController : MonoBehaviour
         {
             this.transform.position += Vector3.left * speed * Time.deltaTime;
         }
+
+        if (currentHealth <= 0)
+        {
+            currentHealth = health;
+            
+            NotifyEnemyDeath();
+            
+            WaveManager.Instance.AddEnemyToPool(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -103,14 +112,12 @@ public class EnemyController : MonoBehaviour
     public void GetDamage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            currentHealth = health;
-            
-            NotifyEnemyDeath();
-            
-            WaveManager.Instance.AddEnemyToPool(this.gameObject);
-        }
+    }
+
+    public void GetReflectDamage(float damage)
+    {
+        int percentOfDamage = (int)((health * damage) / 100);
+        currentHealth -= percentOfDamage;
     }
     
     public IEnumerator GetPassiveDamage(float damage)

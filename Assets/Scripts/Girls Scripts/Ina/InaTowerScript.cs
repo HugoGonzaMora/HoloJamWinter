@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,9 @@ public class InaTowerScript : MonoBehaviour
     private float inaHealth;
     private int layerMask;
     private float rayLength;
+    private int reflectDamage;
+
+    private GameObject enemy;
 
     private void Start()
     {
@@ -21,6 +25,7 @@ public class InaTowerScript : MonoBehaviour
         anim = GetComponent<Animator>();
         inaHealth = ina.health;
         currentInaHealth = inaHealth;
+        reflectDamage = ina.reflectedDamage;
         
         layerMask = LayerMask.GetMask("Default");
         rayLength = 50f;
@@ -50,12 +55,8 @@ public class InaTowerScript : MonoBehaviour
         if (timeBtwAttacks <= 0 && (hitRight.collider != null || hitLeft.collider != null))
         {
             Invoke("BulletInstantiate", 0.3f);
+            
             timeBtwAttacks = ina.timeBtwAtk;
-            // if (hitRight.collider.CompareTag("Enemy") || hitLeft.collider.CompareTag("Enemy"))
-            // {
-            //     Invoke("BulletInstantiate", 0.3f);
-            //     timeBtwAttacks = ina.timeBtwAtk;
-            // }
         }
         else
         {
@@ -68,18 +69,13 @@ public class InaTowerScript : MonoBehaviour
         }
     }
 
-    // private void AttackEnemy()
-    // {
-    //     if (timeBtwAttack <= 0 && hit.collider.CompareTag("Enemy"))
-    //     {
-    //         Invoke("BulletInstantiate", 0.3f);
-    //         timeBtwAttack = ina.timeBtwAtk;
-    //     }
-    //     else
-    //     {
-    //         timeBtwAttack -= Time.deltaTime;
-    //     }
-    // }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            enemy = collision.gameObject;
+        }
+    }
 
     private void BulletInstantiate()
     {
@@ -89,5 +85,6 @@ public class InaTowerScript : MonoBehaviour
     public void GetDamage(float amount)
     {
         currentInaHealth -= amount;
+        enemy.gameObject.GetComponent<EnemyController>()?.GetReflectDamage(reflectDamage);
     }
 }
