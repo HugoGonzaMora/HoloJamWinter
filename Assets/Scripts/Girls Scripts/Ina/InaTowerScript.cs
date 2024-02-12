@@ -43,9 +43,7 @@ public class InaTowerScript : MonoBehaviour
         if (hitRight.collider != null && hitRight.collider.CompareTag("Enemy"))
         {
                 enemyPos = hitRight.transform.position;
-        }
-
-        if (hitLeft.collider != null && hitLeft.collider.CompareTag("Enemy"))
+        } if (hitLeft.collider != null && hitLeft.collider.CompareTag("Enemy"))
         {
                 enemyPos = hitLeft.transform.position;
         }

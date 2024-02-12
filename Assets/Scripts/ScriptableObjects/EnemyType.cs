@@ -15,7 +15,7 @@ public class EnemyType : ScriptableObject
     public Sprite newSprite;
 
     [Range(0, 100)]
-    public float pointsDropRate;
+    public int seedsDropChance;
 
     public enum EnemiesType
     {
