@@ -15,7 +15,7 @@ MonoBehaviour:
   health: 50
   cost: 150
   damage: 10
-  timeBtwAtk: 0.3
+  timeBtwAtk: 1
   fireballPref: {fileID: 0}
   fireDamage: 0
   pointsProduct: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
   timeToDestroy: 0
   bulletPref: {fileID: 7893705949152052304, guid: d017161a1c5c15f4b8bd1e260c71aa76, type: 3}
   decreaseSpeed: 2
-  stunTime: 3
+  stunTime: 0.5
   attacksToStun: 3
   waterballPref: {fileID: 0}
   distanceToMelee: 0
