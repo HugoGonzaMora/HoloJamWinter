@@ -27,7 +27,7 @@ public class TowerType : ScriptableObject
     [Header("Ame")] 
     public GameObject bulletPref;
     public float decreaseSpeed;
-    [Range(1, 5)]public float stunTime;
+    [Range(0, 5)]public float stunTime;
 
     public int attacksToStun;
 

@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySO: {fileID: 11400000, guid: 41d7c0e4953078840a7a45df73124541, type: 2}
+  ameSO: {fileID: 11400000, guid: 8f99504f099b73b46ac48f8afe88ac0b, type: 2}
   speed: 0
   health: 0
   currentHealth: 0

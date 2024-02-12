@@ -28,8 +28,8 @@ public class WaveManager : MonoBehaviour
 
     private float _timeBetweenWaves = 5f;
 
-    private int _minIncreaseWeightCnt = 4;
-    private int _maxIncreaseWeightCnt = 7;
+    private int _minIncreaseWeightCnt = 2;
+    private int _maxIncreaseWeightCnt = 5;
     private int _minAdditionalWeight = 0;
     private int _maxAdditionalWeight = 0;
     private int weightForWave = 0;
@@ -116,7 +116,9 @@ public class WaveManager : MonoBehaviour
     {
         while (weightForWave > 0)
         {
-            yield return new WaitForSeconds(Random.Range(0.5f, 3f));
+
+            yield return new WaitForSeconds(Random.Range(3f, 4f));
+            
             randomSpawnPoint = ChooseRandomSpawnPoint();
             GameObject enemy = ChooseRandomEnemy();
             Debug.Log(enemy);

@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public event Action<EnemyController> OnEnemyDeath;
     
     public EnemyType enemySO;
+    public TowerType ameSO;
 
     public float speed;
     public float health;
@@ -18,6 +19,8 @@ public class EnemyController : MonoBehaviour
 
     public int weight;
     public int seedsDropChance;
+    private int bulletsToStun;
+    private int stunBulletsNow = 0;
     
     GameObject target;
 
@@ -39,8 +42,10 @@ public class EnemyController : MonoBehaviour
         damage = enemySO.enemyDamage;
         attackInterval = enemySO.attackInterval;
         currentHealth = health;
+        
         weight = enemySO.weight;
         seedsDropChance = enemySO.seedsDropChance;
+        bulletsToStun = ameSO.attacksToStun;
     }
 
     private void Update()
@@ -53,6 +58,22 @@ public class EnemyController : MonoBehaviour
         {
             this.transform.position += Vector3.left * speed * Time.deltaTime;
         }
+        if (currentHealth <= 0)
+        {
+            currentHealth = health;
+            
+            NotifyEnemyDeath();
+            
+            WaveManager.Instance.AddEnemyToPool(this.gameObject);
+        }
+
+        if (stunBulletsNow >= bulletsToStun)
+        {
+            speed = 0f;
+            stunBulletsNow = 0;
+            Invoke("ResetEnemySpeed", ameSO.stunTime);
+        }
+    }
 
         if (currentHealth <= 0)
         {
@@ -119,12 +140,21 @@ public class EnemyController : MonoBehaviour
 
     #region GetDamage
 
-        public void GetDamage(float damage)
-        {
-            currentHealth -= damage;
-        }
-        
-        public IEnumerator GetPassiveDamage(float damage)
+    public void GetDamage(float damage)
+    {
+        currentHealth -= damage;
+    }
+
+    public void GetReflectDamage(float damage)
+    {
+        int percentOfDamage = (int)((health * damage) / 100);
+        currentHealth -= percentOfDamage;
+    }
+    
+    public IEnumerator GetPassiveDamage(float damage)
+    {
+        int percentOfDamage = (int)((health * damage) / 100);
+        for (int i = 0; i < 5; i++)
         {
             int percentOfDamage = (int)((health * damage) / 100);
             for (int i = 0; i < 5; i++)
@@ -153,4 +183,8 @@ public class EnemyController : MonoBehaviour
     }
     
     private void NotifyEnemyDeath() => OnEnemyDeath?.Invoke(this);
+
+    public void AddStunBullet() => stunBulletsNow++;
+
+    private void ResetEnemySpeed() => speed = enemySO.enemySpeed;
 }
