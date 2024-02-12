@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -117,7 +116,7 @@ public class WaveManager : MonoBehaviour
     {
         while (weightForWave > 0)
         {
-            yield return new WaitForSeconds(Random.Range(1f, 4f));
+            yield return new WaitForSeconds(Random.Range(0.5f, 3f));
             randomSpawnPoint = ChooseRandomSpawnPoint();
             GameObject enemy = ChooseRandomEnemy();
             Debug.Log(enemy);

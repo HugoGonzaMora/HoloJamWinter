@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyController : MonoBehaviour
 {
@@ -17,13 +17,14 @@ public class EnemyController : MonoBehaviour
     public float attackInterval;
 
     public int weight;
+    public int seedsDropChance;
     
     GameObject target;
 
 
     public AudioClip dmgSound;
 
-    public GameObject pointsPrefab;
+    public GameObject seedssPrefab;
 
     [Header("Animation")]
     public bool isAttacking;
@@ -39,6 +40,7 @@ public class EnemyController : MonoBehaviour
         attackInterval = enemySO.attackInterval;
         currentHealth = health;
         weight = enemySO.weight;
+        seedsDropChance = enemySO.seedsDropChance;
     }
 
     private void Update()
@@ -51,39 +53,54 @@ public class EnemyController : MonoBehaviour
         {
             this.transform.position += Vector3.left * speed * Time.deltaTime;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //Check if the enemy is collisioning with a tower
-         if(collision.gameObject.tag == "Tower")
-         {
-             isAttacking = true;
-             isWalking = false;
-             target = collision.gameObject;
-             StartCoroutine(Attack());
-         }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Tower")
+        if (currentHealth <= 0)
         {
-            isAttacking = true;
-            isWalking = false;
-            target = collision.gameObject;
+            DropSeeds();
+            currentHealth = health;
+                
+            NotifyEnemyDeath();
+                
+            WaveManager.Instance.AddEnemyToPool(this.gameObject);
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag != "Bullet")
+    #region TriggerCheck
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            target = null;
-            isAttacking = false;
-            isWalking = true;
+            //Check if the enemy is collisioning with a tower
+            if(collision.gameObject.tag == "Tower")
+            {
+                isAttacking = true;
+                isWalking = false;
+                target = collision.gameObject;
+                StartCoroutine(Attack());
+            }
         }
-    }
+
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if(collision.gameObject.tag == "Tower")
+            {
+                isAttacking = true;
+                isWalking = false;
+                target = collision.gameObject;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag != "Bullet")
+            {
+                target = null;
+                isAttacking = false;
+                isWalking = true;
+            }
+        }
+
+    #endregion
+    
 
     public IEnumerator Attack()
     {
@@ -100,33 +117,40 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(Attack());
     }
 
-    public void GetDamage(float damage)
-    {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
+    #region GetDamage
+
+        public void GetDamage(float damage)
         {
-            currentHealth = health;
-            
-            NotifyEnemyDeath();
-            
-            WaveManager.Instance.AddEnemyToPool(this.gameObject);
+            currentHealth -= damage;
+        }
+        
+        public IEnumerator GetPassiveDamage(float damage)
+        {
+            int percentOfDamage = (int)((health * damage) / 100);
+            for (int i = 0; i < 5; i++)
+            {
+                currentHealth -= percentOfDamage;
+                //Debug.Log(currentHealth);
+                yield return new WaitForSeconds(1f);
+                if (currentHealth <= 0)
+                {
+                    break;
+                }
+            }
+        }
+
+    #endregion
+
+    private void DropSeeds()
+    {
+        int random = Random.Range(0, 101);
+
+        if (random < seedsDropChance)
+        {
+            GameManager.Instance.seedsCnt += 1;
+            GameManager.Instance.UpdateSeeds();
         }
     }
     
-    public IEnumerator GetPassiveDamage(float damage)
-    {
-        int percentOfDamage = (int)((health * damage) / 100);
-        for (int i = 0; i < 5; i++)
-        {
-            currentHealth -= percentOfDamage;
-            //Debug.Log(currentHealth);
-            yield return new WaitForSeconds(1f);
-            if (currentHealth <= 0)
-            {
-                break;
-            }
-        }
-    }
-
     private void NotifyEnemyDeath() => OnEnemyDeath?.Invoke(this);
 }

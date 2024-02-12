@@ -38,8 +38,6 @@ public class InaTowerScript : MonoBehaviour
                 enemyPos = hit.transform.position;
         }
         
-        ////////////////////////////////////////////////////////////
-        
         if (timeBtwAttacks <= 0 && hit.collider != null)
         {
             if (hit.collider.CompareTag("Enemy"))

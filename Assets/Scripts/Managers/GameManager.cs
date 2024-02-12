@@ -7,8 +7,13 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI holoPoints;
+    public static GameManager Instance;
     
+    public TextMeshProUGUI holoPoints;
+    public TextMeshProUGUI seedsTextBattleField;
+    public TextMeshProUGUI seedsTextFarm;
+
+    public int seedsCnt;
     public int holoPointsCnt;
     private int towerCost;
     
@@ -24,9 +29,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Color selectedButtonColor;
     [SerializeField] private Color defaultButtonColor;
 
+    public void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         UpdateHoloPoints();
+        UpdateSeeds();
     }
 
     #region CardButtonMethods
@@ -95,6 +106,12 @@ public class GameManager : MonoBehaviour
         }
 
         #endregion
+    }
+
+    public void UpdateSeeds()
+    {
+        seedsTextBattleField.text = Convert.ToString(seedsCnt);
+        seedsTextFarm.text = Convert.ToString(seedsCnt);
     }
 
     public void UpdateHoloPoints()
