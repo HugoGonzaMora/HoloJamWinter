@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public event Action<EnemyController> OnEnemyDeath;
     
     public EnemyType enemySO;
+    public TowerType ameSO;
 
     public float speed;
     public float health;
@@ -17,6 +18,8 @@ public class EnemyController : MonoBehaviour
     public float attackInterval;
 
     public int weight;
+    private int bulletsToStun;
+    private int stunBulletsNow = 0;
     
     GameObject target;
 
@@ -39,6 +42,8 @@ public class EnemyController : MonoBehaviour
         attackInterval = enemySO.attackInterval;
         currentHealth = health;
         weight = enemySO.weight;
+
+        bulletsToStun = ameSO.attacksToStun;
     }
 
     private void Update()
@@ -59,6 +64,13 @@ public class EnemyController : MonoBehaviour
             NotifyEnemyDeath();
             
             WaveManager.Instance.AddEnemyToPool(this.gameObject);
+        }
+
+        if (stunBulletsNow >= bulletsToStun)
+        {
+            speed = 0f;
+            stunBulletsNow = 0;
+            Invoke("ResetEnemySpeed", ameSO.stunTime);
         }
     }
 
@@ -136,4 +148,8 @@ public class EnemyController : MonoBehaviour
     }
 
     private void NotifyEnemyDeath() => OnEnemyDeath?.Invoke(this);
+
+    public void AddStunBullet() => stunBulletsNow++;
+
+    private void ResetEnemySpeed() => speed = enemySO.enemySpeed;
 }

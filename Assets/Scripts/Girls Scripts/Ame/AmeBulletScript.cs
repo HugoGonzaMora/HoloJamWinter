@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AmeBulletScript : MonoBehaviour
@@ -26,6 +27,8 @@ public class AmeBulletScript : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyController>()?.GetDamage(damage);
+            collision.gameObject.GetComponent<EnemyController>()?.AddStunBullet();
+            
             Destroy(this.gameObject);
         }
     }
