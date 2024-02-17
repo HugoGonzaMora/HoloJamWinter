@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour
         if (currentHealth <= 0)
         {
             currentHealth = health;
-            
+
             NotifyEnemyDeath();
             
             WaveManager.Instance.AddEnemyToPool(this.gameObject);
@@ -73,7 +73,6 @@ public class EnemyController : MonoBehaviour
             stunBulletsNow = 0;
             Invoke("ResetEnemySpeed", ameSO.stunTime);
         }
-    }
 
         if (currentHealth <= 0)
         {
@@ -85,43 +84,6 @@ public class EnemyController : MonoBehaviour
             WaveManager.Instance.AddEnemyToPool(this.gameObject);
         }
     }
-
-    #region TriggerCheck
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            //Check if the enemy is collisioning with a tower
-            if(collision.gameObject.tag == "Tower")
-            {
-                isAttacking = true;
-                isWalking = false;
-                target = collision.gameObject;
-                StartCoroutine(Attack());
-            }
-        }
-
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            if(collision.gameObject.tag == "Tower")
-            {
-                isAttacking = true;
-                isWalking = false;
-                target = collision.gameObject;
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.gameObject.tag != "Bullet")
-            {
-                target = null;
-                isAttacking = false;
-                isWalking = true;
-            }
-        }
-
-    #endregion
-    
 
     public IEnumerator Attack()
     {
@@ -150,24 +112,21 @@ public class EnemyController : MonoBehaviour
         int percentOfDamage = (int)((health * damage) / 100);
         currentHealth -= percentOfDamage;
     }
-    
+
     public IEnumerator GetPassiveDamage(float damage)
     {
         int percentOfDamage = (int)((health * damage) / 100);
         for (int i = 0; i < 5; i++)
         {
-            int percentOfDamage = (int)((health * damage) / 100);
-            for (int i = 0; i < 5; i++)
+            currentHealth -= percentOfDamage;
+            //Debug.Log(currentHealth);
+            yield return new WaitForSeconds(1f);
+            if (currentHealth <= 0)
             {
-                currentHealth -= percentOfDamage;
-                //Debug.Log(currentHealth);
-                yield return new WaitForSeconds(1f);
-                if (currentHealth <= 0)
-                {
-                    break;
-                }
+                break;
             }
         }
+    }
 
     #endregion
 
