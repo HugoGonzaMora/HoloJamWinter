@@ -85,6 +85,42 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    #region TriggerCheck
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.gameObject.tag == "Tower")
+            {
+                isAttacking = true;
+                isWalking = false;
+                target = collision.gameObject;
+                StartCoroutine(Attack());
+            }
+        }
+        
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if(collision.gameObject.tag == "Tower")
+            {
+                isAttacking = true;
+                isWalking = false;
+                target = collision.gameObject;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag != "Bullet")
+            {
+                target = null;
+                isAttacking = false;
+                isWalking = true;
+            }
+        }
+
+    #endregion
+    
+
     public IEnumerator Attack()
     {
         //Coroutine to attack the towers
