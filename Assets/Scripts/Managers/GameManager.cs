@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI seedsTextBattleField;
     public TextMeshProUGUI seedsTextFarm;
 
-    public int seedsCnt;
+    public int seedsCnt = 0;
     public int holoPointsCnt;
     private int towerCost;
     

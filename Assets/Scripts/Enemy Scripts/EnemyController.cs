@@ -58,8 +58,11 @@ public class EnemyController : MonoBehaviour
         {
             this.transform.position += Vector3.left * speed * Time.deltaTime;
         }
+        
         if (currentHealth <= 0)
         {
+            DropSeeds();
+            
             currentHealth = health;
 
             NotifyEnemyDeath();
@@ -72,16 +75,6 @@ public class EnemyController : MonoBehaviour
             speed = 0f;
             stunBulletsNow = 0;
             Invoke("ResetEnemySpeed", ameSO.stunTime);
-        }
-
-        if (currentHealth <= 0)
-        {
-            DropSeeds();
-            currentHealth = health;
-                
-            NotifyEnemyDeath();
-                
-            WaveManager.Instance.AddEnemyToPool(this.gameObject);
         }
     }
 
@@ -169,8 +162,7 @@ public class EnemyController : MonoBehaviour
     private void DropSeeds()
     {
         int random = Random.Range(0, 101);
-
-        if (random < seedsDropChance)
+        if (random <= seedsDropChance)
         {
             GameManager.Instance.seedsCnt += 1;
             GameManager.Instance.UpdateSeeds();
