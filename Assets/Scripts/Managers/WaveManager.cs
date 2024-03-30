@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,17 +96,16 @@ public class WaveManager : MonoBehaviour
         isWaveNow = true;
         _waveIndex++;
         
-        if (_waveIndex % 3 == 0)
-        {
-            _minAdditionalWeight += _waveIndex / 3;
-            _maxAdditionalWeight = _minAdditionalWeight + _waveIndex / 3;
-        }
-        
-        weightForWave = Random.Range(_minIncreaseWeightCnt, _maxIncreaseWeightCnt + 1);
-        weightOnTheScene = weightForWave;
+        // if (_waveIndex % 3 == 0)
+        // {
+        //     _minAdditionalWeight += _waveIndex / 3;
+        //     _maxAdditionalWeight = _minAdditionalWeight + _waveIndex / 3;
+        // }
+        //
+        // weightForWave = Random.Range(_minIncreaseWeightCnt, _maxIncreaseWeightCnt + 1);
 
-        _minIncreaseWeightCnt = weightForWave + _minAdditionalWeight;
-        _maxIncreaseWeightCnt = _minIncreaseWeightCnt + _maxAdditionalWeight;
+        WeightForWaveCalculations(_waveIndex);
+        weightOnTheScene = weightForWave;
         
         Debug.Log($"Weight in wave: {weightForWave}");
 
@@ -218,6 +218,13 @@ public class WaveManager : MonoBehaviour
         }
 
     #endregion
+
+    private int WeightForWaveCalculations(int waveIndex)
+    {
+        weightForWave = (int)Math.Pow(waveIndex, 2);
+        
+        return weightForWave;
+    }
     
     public void AddEnemyToPool(GameObject enemy)
     {
