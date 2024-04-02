@@ -61,13 +61,7 @@ public class EnemyController : MonoBehaviour
         
         if (currentHealth <= 0)
         {
-            DropSeeds();
-            
-            currentHealth = health;
-
-            NotifyEnemyDeath();
-            
-            WaveManager.Instance.AddEnemyToPool(this.gameObject);
+            EnemyDeathAction();
         }
 
         if (stunBulletsNow >= bulletsToStun)
@@ -113,7 +107,6 @@ public class EnemyController : MonoBehaviour
 
     #endregion
     
-
     public IEnumerator Attack()
     {
         //Coroutine to attack the towers
@@ -167,6 +160,17 @@ public class EnemyController : MonoBehaviour
             GameManager.Instance.seedsCnt += 1;
             GameManager.Instance.UpdateSeeds();
         }
+    }
+
+    private void EnemyDeathAction()
+    {
+        DropSeeds();
+            
+        currentHealth = health;
+
+        NotifyEnemyDeath();
+            
+        WaveManager.Instance.AddEnemyToPool(this.gameObject);
     }
     
     private void NotifyEnemyDeath() => OnEnemyDeath?.Invoke(this);
