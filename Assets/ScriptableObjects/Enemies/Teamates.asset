@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealth: 100
   enemySpeed: 1
-  enemyDamage: 1
-  attackInterval: 1
+  enemyDamage: 15
+  attackInterval: 1.5
   weight: 2
   newSprite: {fileID: 0}
   seedsDropChance: 12
