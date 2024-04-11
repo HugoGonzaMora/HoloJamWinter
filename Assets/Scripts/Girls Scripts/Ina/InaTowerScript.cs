@@ -40,6 +40,7 @@ public class InaTowerScript : MonoBehaviour
 
         RaycastHit2D hitRight = Physics2D.Raycast(rayOrigin, rayDirectionRight, rayLength, layerMask);
         RaycastHit2D hitLeft = Physics2D.Raycast(rayOrigin, rayDirectionLeft, rayLength, layerMask);
+        
         if (hitRight.collider != null && hitRight.collider.CompareTag("Enemy"))
         {
                 enemyPos = hitRight.transform.position;
@@ -53,8 +54,6 @@ public class InaTowerScript : MonoBehaviour
         
         if (timeBtwAttacks <= 0 && (hitRight.collider != null || hitLeft.collider != null))
         {
-            Debug.Log(hitLeft.collider);
-            Debug.Log(hitLeft.collider);
             Invoke("BulletInstantiate", 0.3f);
             
             timeBtwAttacks = ina.timeBtwAtk;
