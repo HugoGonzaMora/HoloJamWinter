@@ -18,4 +18,4 @@ MonoBehaviour:
   attackInterval: 1.5
   weight: 4
   newSprite: {fileID: 0}
-  seedsDropChance: 20
+  seedsDropChance: 40
