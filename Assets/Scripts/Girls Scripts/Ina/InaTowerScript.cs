@@ -53,6 +53,8 @@ public class InaTowerScript : MonoBehaviour
         
         if (timeBtwAttacks <= 0 && (hitRight.collider != null || hitLeft.collider != null))
         {
+            Debug.Log(hitLeft.collider);
+            Debug.Log(hitLeft.collider);
             Invoke("BulletInstantiate", 0.3f);
             
             timeBtwAttacks = ina.timeBtwAtk;
@@ -64,7 +66,7 @@ public class InaTowerScript : MonoBehaviour
 
         if (currentInaHealth <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 

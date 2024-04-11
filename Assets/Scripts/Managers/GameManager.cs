@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,9 +19,11 @@ public class GameManager : MonoBehaviour
     private int towerCost;
     
     [SerializeField] private GameObject grid;
+    [SerializeField] private GameObject[] _plantPrefs;
     private GameObject towerPref;
 
     [SerializeField] private Tile[] tiles;
+    [SerializeField] private Tile[] farmTiles;
 
     public bool isTowerSelected = false;
 
@@ -28,6 +31,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Color selectedButtonColor;
     [SerializeField] private Color defaultButtonColor;
+
+    [SerializeField] private Camera _mainCamera;
+    [SerializeField] private Camera _farmCamera;
 
     public void Awake()
     {
@@ -80,7 +86,7 @@ public class GameManager : MonoBehaviour
             float nearestDistance = float.MaxValue;
             foreach (Tile tile in tiles)
             {
-                float distance = Vector2.Distance(tile.transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                float distance = Vector2.Distance(tile.transform.position, _mainCamera.ScreenToWorldPoint(Input.mousePosition));
                 if (distance < nearestDistance)
                 {
                     nearestDistance = distance;
@@ -102,6 +108,43 @@ public class GameManager : MonoBehaviour
             {
                 isTowerSelected = !isTowerSelected;
                 cardButton.image.color = defaultButtonColor;
+            }
+        }
+
+        #endregion
+
+        #region Seeds Planting
+
+        if (Input.GetMouseButtonDown(0) && seedsCnt > 0)
+        {
+            foreach (Tile tile in farmTiles)
+            {
+                if (tile.transform.childCount == 0)
+                {
+                    tile.isOccupied = false;
+                }
+            }/////////////////////////////////////////////////////////////////////
+            
+            Tile nearestTile = null;
+            float nearestDistance = float.MaxValue;
+            foreach (Tile tile in farmTiles)
+            {
+                float distance = Vector2.Distance(tile.transform.position, _farmCamera.ScreenToWorldPoint(Input.mousePosition));
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestTile = tile;
+                }
+            }
+
+            if (!nearestTile.isOccupied && nearestDistance < 0.9f)
+            {
+                GameObject _plantPref = _plantPrefs[Random.Range(0, _plantPrefs.Length)];
+                GameObject seedInstance = Instantiate(_plantPref, nearestTile.transform.position, Quaternion.identity);
+                seedInstance.transform.parent = nearestTile.transform;
+                nearestTile.isOccupied = true;
+                seedsCnt -= 1;
+                UpdateSeeds();
             }
         }
 
