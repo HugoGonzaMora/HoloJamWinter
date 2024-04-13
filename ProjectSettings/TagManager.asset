@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Tower
   - Bullet
+  - ObjectToDefend
   layers:
   - Default
   - TransparentFX

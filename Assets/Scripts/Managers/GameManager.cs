@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera _mainCamera;
     [SerializeField] private Camera _farmCamera;
 
+    [HideInInspector] public  bool isGameEnd;
+    
+    [HideInInspector] public int killedEnemiesCnt = 0;
+    [HideInInspector] public float survivedTime = 0f;
+
     public void Awake()
     {
         Instance = this;
@@ -42,6 +48,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        isGameEnd = false;
+        
         UpdateHoloPoints();
         UpdateSeeds();
     }
@@ -149,6 +157,16 @@ public class GameManager : MonoBehaviour
         }
 
         #endregion
+
+        if (isGameEnd == true)
+        {
+            EndGame();
+        }
+
+        if (isGameEnd == false)
+        {
+            survivedTime += Time.deltaTime;
+        }
     }
 
     public void UpdateSeeds()
@@ -165,5 +183,12 @@ public class GameManager : MonoBehaviour
     public void CheckTowerCost(TextMeshProUGUI towerCost)
     {
         this.towerCost = Convert.ToInt32(towerCost.text);
+    }
+
+    private void EndGame()
+    {
+        SceneManager.LoadScene("EndGameScene");
+        Debug.Log(killedEnemiesCnt);
+        Debug.Log(Convert.ToInt32(survivedTime));
     }
 }

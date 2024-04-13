@@ -83,6 +83,11 @@ public class EnemyController : MonoBehaviour
                 target = collision.gameObject;
                 StartCoroutine(Attack());
             }
+
+            if (collision.gameObject.tag == "ObjectToDefend")
+            {
+                GameManager.Instance.isGameEnd = true;
+            }
         }
         
         private void OnTriggerStay2D(Collider2D collision)

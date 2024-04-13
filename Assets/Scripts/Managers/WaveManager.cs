@@ -232,6 +232,7 @@ public class WaveManager : MonoBehaviour
     {
         weightOnTheScene -= enemy.weight;
         _enemiesKilledInWave += 1;
+        GameManager.Instance.killedEnemiesCnt += 1;
         Debug.Log($"Enemies weightOnTheScene: {weightOnTheScene}");
     }
 }
