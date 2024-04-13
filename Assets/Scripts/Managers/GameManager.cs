@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public  bool isGameEnd;
     
-    [HideInInspector] public int killedEnemiesCnt = 0;
+    [HideInInspector] public int enemiesKilledCnt = 0;
     [HideInInspector] public float survivedTime = 0f;
 
     public void Awake()
@@ -188,7 +188,5 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         SceneManager.LoadScene("EndGameScene");
-        Debug.Log(killedEnemiesCnt);
-        Debug.Log(Convert.ToInt32(survivedTime));
     }
 }
