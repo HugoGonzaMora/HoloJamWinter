@@ -15,11 +15,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI seedsTextBattleField;
     public TextMeshProUGUI seedsTextFarm;
 
-    public int seedsCnt = 0;
+    public int seedsCnt;
     public int holoPointsCnt;
-    private int towerCost;
+    private int _towerCost;
     
-    [SerializeField] private GameObject grid;
     [SerializeField] private GameObject[] _plantPrefs;
     private GameObject towerPref;
 
@@ -82,7 +81,7 @@ public class GameManager : MonoBehaviour
     {
         #region TowerPlacing
 
-        if (holoPointsCnt < towerCost)
+        if (holoPointsCnt < _towerCost)
         {
             isTowerSelected = false;
             cardButton.image.color = defaultButtonColor;
@@ -109,7 +108,7 @@ public class GameManager : MonoBehaviour
                 nearestTile.isOccupied = true;
                 isTowerSelected = !isTowerSelected;
                 cardButton.image.color = defaultButtonColor;
-                holoPointsCnt -= towerCost;
+                holoPointsCnt -= _towerCost;
                 UpdateHoloPoints();
             }
             else
@@ -182,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckTowerCost(TextMeshProUGUI towerCost)
     {
-        this.towerCost = Convert.ToInt32(towerCost.text);
+        _towerCost = Convert.ToInt32(towerCost.text);
     }
 
     private void EndGame()
