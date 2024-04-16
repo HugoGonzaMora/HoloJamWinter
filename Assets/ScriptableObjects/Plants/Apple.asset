@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   holopoints: 50
-  timeToGrow: 10
+  timeToGrow: 1

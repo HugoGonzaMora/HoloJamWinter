@@ -30,7 +30,7 @@ public class WaveManager : MonoBehaviour
 
     private float _timeBetweenWaves = 5f;
 
-    private int _waveIndex;
+    [HideInInspector] public int waveIndex { get; private set; } 
     private int _weightForWave = 0;
     private int _previousWaveWeight = 0;
 
@@ -54,7 +54,7 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         _isWaveNow = false;
-        _waveIndex = 0;
+        waveIndex = 0;
         weightOnTheScene = 0;
         
         InitializeEnemyPool();
@@ -94,10 +94,10 @@ public class WaveManager : MonoBehaviour
     private void StartWave()
     {
         _isWaveNow = true;
-        _waveIndex++;
+        waveIndex++;
         _enemiesKilledInWave = 0;
 
-        WeightForWaveCalculations(_waveIndex);
+        WeightForWaveCalculations(waveIndex);
         weightOnTheScene = _weightForWave;
         
         Debug.Log($"Weight in wave: {_weightForWave}");
@@ -214,7 +214,7 @@ public class WaveManager : MonoBehaviour
 
     private int WeightForWaveCalculations(int waveIndex)
     {
-        _weightForWave = (int)(_previousWaveWeight * 0.8f + _enemiesKilledInWave * _increaseIndex)+_waveIndex;
+        _weightForWave = (int)(_previousWaveWeight * 0.8f + _enemiesKilledInWave * _increaseIndex)+waveIndex;
 
         _previousWaveWeight = _weightForWave;
         return _weightForWave;

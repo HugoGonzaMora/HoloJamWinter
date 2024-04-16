@@ -11,6 +11,8 @@ public class PlantController : MonoBehaviour
 
     private float _timeToGrow;
 
+    private bool _isGrown;
+
     private void Start()
     {
         _holopoints = plantSO.holopoints;
@@ -25,9 +27,17 @@ public class PlantController : MonoBehaviour
         }
         else
         {
+            _isGrown = true;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (_isGrown)
+        {
             GameManager.Instance.holoPointsCnt += _holopoints;
             GameManager.Instance.UpdateHoloPoints();
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

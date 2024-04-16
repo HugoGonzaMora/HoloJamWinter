@@ -7,17 +7,21 @@ public class TestEndGameScript : MonoBehaviour
 {
     public TextMeshProUGUI enemiesKilledInGame;
     public TextMeshProUGUI survivedTimeInGame;
-    
+    public TextMeshProUGUI wavesSurvived;
+
+    private int _wavesSurvived;
     private int _enemiesKilledCnt;
     private int _survivedTime;
 
     private void Start()
     {
+        _wavesSurvived = WaveManager.Instance.waveIndex - 1;
         _enemiesKilledCnt = GameManager.Instance.enemiesKilledCnt;
         _survivedTime = Convert.ToInt32(GameManager.Instance.survivedTime);
 
+        wavesSurvived.text = $"{_wavesSurvived}";
         enemiesKilledInGame.text = $"{_enemiesKilledCnt}";
-        survivedTimeInGame.text = ConvertSurvivalTime(_survivedTime);
+        survivedTimeInGame.text = GameManager.Instance.ConvertSurvivalTime(_survivedTime);
     }
 
     void Update()
@@ -26,15 +30,5 @@ public class TestEndGameScript : MonoBehaviour
         {
             SceneManager.LoadScene("SampleScene");
         }
-    }
-
-    private string ConvertSurvivalTime(int _survivedTime)
-    {
-        int h = _survivedTime / 3600;
-        int s = _survivedTime % 3600;
-        int m = s / 60;
-        s = s % 60;
-
-        return string.Format($"{h}:{m:D2}:{s:D2}");
     }
 }

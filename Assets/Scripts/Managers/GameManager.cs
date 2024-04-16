@@ -14,13 +14,14 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI holoPoints;
     public TextMeshProUGUI seedsTextBattleField;
     public TextMeshProUGUI seedsTextFarm;
+    public TextMeshProUGUI SurvivalTimeText;
 
     public int seedsCnt;
     public int holoPointsCnt;
     private int _towerCost;
     
     [SerializeField] private GameObject[] _plantPrefs;
-    private GameObject towerPref;
+    private GameObject _towerPref;
 
     [SerializeField] private Tile[] tiles;
     [SerializeField] private Tile[] farmTiles;
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour
     public void TowerSelected(GameObject towerPref)
     {
         isTowerSelected = !isTowerSelected;
-        this.towerPref = towerPref;
+        this._towerPref = towerPref;
 
         foreach (Tile tile in tiles)
         {
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
 
             if (!nearestTile.isOccupied && nearestDistance < 0.9f)
             {
-                GameObject towerInstance = Instantiate(towerPref, nearestTile.transform.position, Quaternion.identity);
+                GameObject towerInstance = Instantiate(_towerPref, nearestTile.transform.position, Quaternion.identity);
                 towerInstance.transform.parent = nearestTile.transform;
                 nearestTile.isOccupied = true;
                 isTowerSelected = !isTowerSelected;
@@ -157,6 +158,8 @@ public class GameManager : MonoBehaviour
 
         #endregion
 
+        InvokeRepeating(nameof(DisplaySurvivingTime), 1f, 1f);
+        
         if (isGameEnd == true)
         {
             EndGame();
@@ -187,5 +190,21 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         SceneManager.LoadScene("EndGameScene");
+    }
+
+    public string ConvertSurvivalTime(int survivedTime)
+    {
+        int h = survivedTime / 3600;
+        int s = survivedTime % 3600;
+        int m = s / 60;
+        s = s % 60;
+
+        
+        return string.Format($"{h}:{m:D2}:{s:D2}");
+    }
+
+    private void DisplaySurvivingTime()
+    {
+        SurvivalTimeText.text = ConvertSurvivalTime(Convert.ToInt32(survivedTime));
     }
 }
