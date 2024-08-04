@@ -1,27 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GuraTowerScript : MonoBehaviour
+public class GuraTowerScript : BaseTower
 {
-    public TowerType gura;
-    
     private Transform firePos;
     
-    private float timeBtwAttacks;
-    private float currentGuraHealth;
-    private float guraHealth;
-
     private float _bleedDamage;
+    private float _meeleDamage;
     
     private int layerMask;
     private float rayLength;
     
     private bool isInMeele = false;
-
-    private float _meeleDamage;
-
-    private Animator anim;
 
     private GameObject target;
 
@@ -29,32 +21,38 @@ public class GuraTowerScript : MonoBehaviour
 
     private void Start()
     {
-        _meeleDamage = gura.meleeDamage;
-        timeBtwAttacks = gura.timeBtwAtk;
-        anim = GetComponent<Animator>();
-        firePos = gameObject.transform.GetChild(0);
-        guraHealth = gura.health;
-        currentGuraHealth = guraHealth;
-        _bleedDamage = gura.bleedingDamage;
+        Initialize();
         
-        layerMask = LayerMask.GetMask("Default");
+        firePos = gameObject.transform.GetChild(0);
+        
+        _meeleDamage = towerType.meleeDamage;
+        _bleedDamage = towerType.bleedingDamage;
+        
+        layerMask = LayerMask.GetMask("EnemyLayer");
         rayLength = 50f;
     }
 
     private void Update()
+    {
+        CheckTowerHP();
+        
+        Attack();
+    }
+
+    private void Attack()
     {
         Vector2 rayOrigin = transform.position;
 
         Vector2 rayDirection = Vector2.right;
 
         RaycastHit2D hit = Physics2D.Raycast(rayOrigin, rayDirection, rayLength, layerMask);
-        if (hit.collider != null && hit.collider.CompareTag("Enemy") && timeBtwAttacks <= 0 && isInMeele == false)
+        if (hit.collider != null && hit.collider.CompareTag("Enemy") && towerTimeBtwAttacs <= 0 && isInMeele == false)
         {
             anim.Play("RangedAttack");
             Invoke("BulletInstantiate", 0.3f);
-            timeBtwAttacks = gura.timeBtwAtk;
+            towerTimeBtwAttacs = towerType.timeBtwAtk;
         }
-        else if (timeBtwAttacks <= 0 && isInMeele == true)
+        else if (towerTimeBtwAttacs <= 0 && isInMeele == true)
         {
             anim.Play("MeleeAttack");
             target.GetComponent<EnemyController>()?.GetDamage(_meeleDamage);
@@ -65,16 +63,11 @@ public class GuraTowerScript : MonoBehaviour
     
                 target.GetComponent<EnemyController>()?.StartCoroutine(BleedCoroutine);
             }
-            timeBtwAttacks = gura.timeBtwAtk;
+            towerTimeBtwAttacs = towerType.timeBtwAtk;
         }
         else
         {
-            timeBtwAttacks -= Time.deltaTime;
-        }
-
-        if (currentGuraHealth <= 0)
-        {
-            Destroy(this.gameObject);
+            towerTimeBtwAttacs -= Time.deltaTime;
         }
     }
     
@@ -97,11 +90,11 @@ public class GuraTowerScript : MonoBehaviour
 
     private void BulletInstantiate()
     {
-        Instantiate(gura.waterballPref, firePos.transform.position, Quaternion.identity);
+        Instantiate(towerType.waterballPref, firePos.transform.position, Quaternion.identity);
     }
 
-    public void GetDamage(float amount)
+    private void OnMouseDown()
     {
-        currentGuraHealth -= amount;
-    } 
+        SellTower();
+    }
 }

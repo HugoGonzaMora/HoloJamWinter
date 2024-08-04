@@ -15,7 +15,7 @@ public class KiaraTowerScript : BaseTower
         Initialize();
         
         firePos = gameObject.transform.GetChild(0);
-        layerMask = LayerMask.GetMask("Default");
+        layerMask = LayerMask.GetMask("EnemyLayer");
         rayLength = 50f;
     }
 
@@ -48,10 +48,5 @@ public class KiaraTowerScript : BaseTower
     private void FireballInstantiate()
     {
         Instantiate(towerType.fireballPref, firePos.transform.position, Quaternion.identity);
-    }
-
-    private void OnMouseDown()
-    {
-        SellTower();
     }
 }

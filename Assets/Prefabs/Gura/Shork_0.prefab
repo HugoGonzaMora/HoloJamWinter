@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6fa0291a68c2249888ad9feb59c405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gura: {fileID: 11400000, guid: ce0da113e2786004c9378712db5df695, type: 2}
+  towerType: {fileID: 11400000, guid: ce0da113e2786004c9378712db5df695, type: 2}
 --- !u!50 &-1478940466226940715
 Rigidbody2D:
   serializedVersion: 4
@@ -295,7 +295,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.0166667, y: 1.4}
+    oldSize: {x: 1.1090909, y: 1.5272727}
     newSize: {x: 1.22, y: 1.68}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261285fce3b1f6543accbe05985c95ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  calli: {fileID: 11400000, guid: 39ae11c4e3486ea40b987b3f2c405485, type: 2}
+  towerType: {fileID: 11400000, guid: 39ae11c4e3486ea40b987b3f2c405485, type: 2}
 --- !u!50 &-640075200620435714
 Rigidbody2D:
   serializedVersion: 4

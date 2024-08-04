@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Gura
   m_EditorClassIdentifier: 
   health: 200
-  cost: 0
+  cost: 100
   damage: 20
-  timeBtwAtk: 5
+  timeBtwAtk: 2
   fireballPref: {fileID: 0}
   fireDamage: 0
   pointsProduct: 0

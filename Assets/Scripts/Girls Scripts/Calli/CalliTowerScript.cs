@@ -1,32 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class CalliTowerScript : MonoBehaviour
+public class CalliTowerScript : BaseTower
 {
-    public TowerType calli;
-    private float timeBtwAttacks;
-    private float currentCalliHealth;
-    private float calliHealth;
-    private float _damage;
-
-    private Animator anim;
-
     private List<GameObject> enemiesInRange = new List<GameObject>();
 
     private void Start()
     {
-        _damage = calli.damage;
-        timeBtwAttacks = calli.timeBtwAtk;
-        anim = GetComponent<Animator>();
-        calliHealth = calli.health;
-        currentCalliHealth = calliHealth;
+        Initialize();
     }
 
     private void Update()
     {
-        if (timeBtwAttacks <= 0 && enemiesInRange.Any())
+        CheckTowerHP();
+        
+        Attack();
+        
+        
+    }
+
+    private void Attack()
+    {
+        if (towerTimeBtwAttacs <= 0 && enemiesInRange.Any())
         {
             int randNum = Random.Range(1, 101);
             if (randNum == 3)
@@ -36,18 +35,13 @@ public class CalliTowerScript : MonoBehaviour
             anim.Play("Attack");
             foreach (GameObject enemy in enemiesInRange.ToList())
             {
-                enemy.gameObject.GetComponent<EnemyController>()?.GetDamage(_damage);
+                enemy.gameObject.GetComponent<EnemyController>()?.GetDamage(towerDamage);
             }
-            timeBtwAttacks = calli.timeBtwAtk;
+            towerTimeBtwAttacs = towerType.timeBtwAtk;
         }
         else
         {
-            timeBtwAttacks -= Time.deltaTime;
-        }
-
-        if (currentCalliHealth <= 0)
-        {
-            Destroy(this.gameObject);
+            towerTimeBtwAttacs -= Time.deltaTime;
         }
     }
     
@@ -67,8 +61,18 @@ public class CalliTowerScript : MonoBehaviour
         }
     }
 
-    public void GetDamage(float amount)
+    private void OnMouseDown()
     {
-        currentCalliHealth -= amount;
+        Collider2D mainCollider = GetComponent<BoxCollider2D>();
+        if (!mainCollider.isTrigger)
+        {
+            Transform childObject = transform.GetChild(0);
+            Collider2D triggerCollider = childObject.GetComponent<BoxCollider2D>();
+
+            if (triggerCollider != null && triggerCollider.enabled)
+            {
+                SellTower();
+            }
+        }
     }
 }

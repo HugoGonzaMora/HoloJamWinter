@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ina
   m_EditorClassIdentifier: 
   health: 100
-  cost: 0
+  cost: 100
   damage: 40
   timeBtwAtk: 3
   fireballPref: {fileID: 0}

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da96b1725ff742647a7986a3343866a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 40
+  speed: 30
   AmeTowerSO: {fileID: 11400000, guid: 8f99504f099b73b46ac48f8afe88ac0b, type: 2}
 --- !u!95 &-1690329711438185330
 Animator:
@@ -158,7 +158,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.20952381, y: 0.13333334}
+    oldSize: {x: 0.19130434, y: 0.12173913}
     newSize: {x: 0.20952381, y: 0.13333334}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
