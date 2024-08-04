@@ -3,16 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InaTowerScript : MonoBehaviour
+public class InaTowerScript : BaseTower
 {
-    public TowerType ina;
-    private float timeBtwAttacks;
-
-    private Animator anim;
-
     private Vector3 enemyPos;
-    private float currentInaHealth;
-    private float inaHealth;
     private int layerMask;
     private float rayLength;
     private int reflectDamage;
@@ -21,17 +14,22 @@ public class InaTowerScript : MonoBehaviour
 
     private void Start()
     {
-        timeBtwAttacks = ina.timeBtwAtk;
-        anim = GetComponent<Animator>();
-        inaHealth = ina.health;
-        currentInaHealth = inaHealth;
-        reflectDamage = ina.reflectedDamage;
+        Initialize();
         
-        layerMask = LayerMask.GetMask("Default");
+        reflectDamage = towerType.reflectedDamage;
+        
+        layerMask = LayerMask.GetMask("EnemyLayer");
         rayLength = 50f;
     }
 
     private void Update()
+    {
+        CheckTowerHP();
+        
+        Attack();
+    }
+
+    private void Attack()
     {
         Vector2 rayOrigin = transform.position;
 
@@ -43,29 +41,24 @@ public class InaTowerScript : MonoBehaviour
         
         if (hitRight.collider != null && hitRight.collider.CompareTag("Enemy"))
         {
-                enemyPos = hitRight.transform.position;
+            enemyPos = hitRight.transform.position;
         } 
         if (hitLeft.collider != null && hitLeft.collider.CompareTag("Enemy"))
         {
-                enemyPos = hitLeft.transform.position;
+            enemyPos = hitLeft.transform.position;
         }
 
         ////////////////////////////////////////////////////////////
         
-        if (timeBtwAttacks <= 0 && (hitRight.collider != null || hitLeft.collider != null))
+        if (towerTimeBtwAttacs <= 0 && (hitRight.collider != null || hitLeft.collider != null))
         {
             Invoke("BulletInstantiate", 0.3f);
             
-            timeBtwAttacks = ina.timeBtwAtk;
+            towerTimeBtwAttacs = towerType.timeBtwAtk;
         }
         else
         {
-            timeBtwAttacks -= Time.deltaTime;
-        }
-
-        if (currentInaHealth <= 0)
-        {
-            Destroy(gameObject);
+            towerTimeBtwAttacs -= Time.deltaTime;
         }
     }
 
@@ -79,12 +72,11 @@ public class InaTowerScript : MonoBehaviour
 
     private void BulletInstantiate()
     {
-        Instantiate(ina.tentaclePref, enemyPos, Quaternion.identity);
+        Instantiate(towerType.tentaclePref, enemyPos, Quaternion.identity);
     }
 
-    public void GetDamage(float amount)
+    private void OnMouseDown()
     {
-        currentInaHealth -= amount;
-        enemy.gameObject.GetComponent<EnemyController>()?.GetReflectDamage(reflectDamage);
+        SellTower();
     }
 }

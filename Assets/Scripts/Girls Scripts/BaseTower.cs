@@ -10,16 +10,8 @@ public abstract class BaseTower : MonoBehaviour, ITower
     protected float towerTimeBtwAttacs;
     protected int towerCost;
     protected int towerDamage;
-    
-    void Start()
-    {
-        Initialize();
-    }
 
-    void Update()
-    {
-        CheckTowerHP();
-    }
+    protected Animator anim;
 
     public virtual void Initialize()
     {
@@ -27,11 +19,7 @@ public abstract class BaseTower : MonoBehaviour, ITower
         towerTimeBtwAttacs = towerType.timeBtwAtk;
         towerCost = towerType.cost;
         towerDamage = towerType.damage;
-    }
-
-    public void Attack()
-    {
-        throw new System.NotImplementedException();
+        anim = GetComponent<Animator>();
     }
 
     public void GetDamage(float amount)
@@ -52,10 +40,5 @@ public abstract class BaseTower : MonoBehaviour, ITower
         GameManager.Instance.holoPointsCnt += Convert.ToInt32(towerType.cost / 2);
         GameManager.Instance.UpdateHoloPoints();
         Destroy(gameObject);
-    }
-
-    protected void OnMouseDown()
-    {
-        SellTower();
     }
 }

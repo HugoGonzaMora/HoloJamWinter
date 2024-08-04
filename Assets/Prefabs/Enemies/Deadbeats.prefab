@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 180542871701645016}
   - component: {fileID: 7405636462656057639}
   - component: {fileID: 5590528741507830921}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Deadbeats
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -179,8 +179,9 @@ MonoBehaviour:
   damage: 0
   attackInterval: 0
   weight: 0
+  seedsDropChance: 0
   dmgSound: {fileID: 0}
-  pointsPrefab: {fileID: 0}
+  seedssPrefab: {fileID: 0}
   isAttacking: 0
   isWalking: 0
   isDed: 0
