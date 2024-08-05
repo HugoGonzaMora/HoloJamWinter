@@ -39,7 +39,7 @@ public class GuraTowerScript : BaseTower
         Attack();
     }
 
-    private void Attack()
+    protected override void Attack()
     {
         Vector2 rayOrigin = transform.position;
 

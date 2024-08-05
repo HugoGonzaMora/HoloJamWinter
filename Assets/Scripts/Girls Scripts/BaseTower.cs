@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseTower : MonoBehaviour, ITower
+public abstract class BaseTower : MonoBehaviour
 {
-    public TowerType towerType;
+    [SerializeField] protected TowerType towerType;
+    
     protected float currentTowerHealth;
     protected float towerTimeBtwAttacs;
     protected int towerCost;
@@ -13,7 +14,7 @@ public abstract class BaseTower : MonoBehaviour, ITower
 
     protected Animator anim;
 
-    public virtual void Initialize()
+    protected void Initialize()
     {
         currentTowerHealth = towerType.health;
         towerTimeBtwAttacs = towerType.timeBtwAtk;
@@ -22,12 +23,14 @@ public abstract class BaseTower : MonoBehaviour, ITower
         anim = GetComponent<Animator>();
     }
 
+    protected abstract void Attack();
+
     public void GetDamage(float amount)
     {
         currentTowerHealth -= amount;
     }
 
-    public void CheckTowerHP()
+    protected void CheckTowerHP()
     {
         if (currentTowerHealth <= 0)
         {
@@ -35,7 +38,7 @@ public abstract class BaseTower : MonoBehaviour, ITower
         }
     }
 
-    public void SellTower()
+    protected void SellTower()
     {
         GameManager.Instance.holoPointsCnt += Convert.ToInt32(towerType.cost / 2);
         GameManager.Instance.UpdateHoloPoints();

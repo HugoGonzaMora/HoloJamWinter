@@ -26,7 +26,7 @@ public class KiaraTowerScript : BaseTower
         Attack();
     }
 
-    private void Attack()
+    protected override void Attack()
     {
         Vector2 rayOrigin = transform.position;
 

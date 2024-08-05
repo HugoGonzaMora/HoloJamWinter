@@ -19,11 +19,9 @@ public class CalliTowerScript : BaseTower
         CheckTowerHP();
         
         Attack();
-        
-        
     }
 
-    private void Attack()
+    protected override void Attack()
     {
         if (towerTimeBtwAttacs <= 0 && enemiesInRange.Any())
         {
@@ -60,19 +58,16 @@ public class CalliTowerScript : BaseTower
             enemiesInRange.Remove(collision.gameObject);
         }
     }
-
+    
     private void OnMouseDown()
     {
-        Collider2D mainCollider = GetComponent<BoxCollider2D>();
-        if (!mainCollider.isTrigger)
-        {
-            Transform childObject = transform.GetChild(0);
-            Collider2D triggerCollider = childObject.GetComponent<BoxCollider2D>();
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (triggerCollider != null && triggerCollider.enabled)
-            {
-                SellTower();
-            }
+        BoxCollider2D mainCollider = GetComponent<BoxCollider2D>();
+
+        if (mainCollider != null && !mainCollider.isTrigger && mainCollider.OverlapPoint(mousePosition))
+        {
+            SellTower();
         }
     }
 }
